@@ -18,29 +18,25 @@ namespace AutoCADToRevitApplication.ViewModels
         private UIDocument? _uiDoc;
         private Document? _doc;
         private List<GridModel> _parsedGrids = new();
+        private List<ColumnModel> _parsedColumns = new();
 
         public event Action? RequestClose;
 
         [ObservableProperty] private string _dwgFileName = "Chưa tìm thấy file DWG...";
         [ObservableProperty] private bool _isFileLoaded;
-
-        [ObservableProperty]
-        private string _statusMessage = "Chưa đọc file CAD. Vui lòng nhấn 'Đọc CAD' để bắt đầu.";
-
-        [ObservableProperty]
-        private Brush _statusColor = new SolidColorBrush(MediaColor.FromRgb(0x78, 0x90, 0x9C));
-
+        [ObservableProperty] private string _statusMessage = "Chưa đọc file CAD. Vui lòng nhấn 'Đọc CAD' để bắt đầu.";
+        [ObservableProperty] private Brush _statusColor = new SolidColorBrush(MediaColor.FromRgb(0x78, 0x90, 0x9C));
         [ObservableProperty] private ObservableCollection<DwgLayer> _layers = new();
-
         [ObservableProperty] private int _gridCount;
         [ObservableProperty] private int _gridLayerCount;
         [ObservableProperty] private int _columnCount;
         [ObservableProperty] private int _beamCount;
         [ObservableProperty] private int _slabCount;
-
         [ObservableProperty] private string _floorHeight = "4300";
         [ObservableProperty] private string _typicalHeight = "3900";
         [ObservableProperty] private string _numberOfFloors = "7";
+        [ObservableProperty] private string _columnBaseOffset = "0";
+        [ObservableProperty] private string _columnTopOffset = "0";
         [ObservableProperty] private string _slabThickness = "130";
         [ObservableProperty] private string _beamWidth = "300";
         [ObservableProperty] private string _beamHeight = "700";
@@ -48,7 +44,6 @@ namespace AutoCADToRevitApplication.ViewModels
         [ObservableProperty] private string _yStartName = "1";
         [ObservableProperty] private string _xNamingDirection = "Trái sang phải";
         [ObservableProperty] private string _yNamingDirection = "Dưới lên trên";
-
         [ObservableProperty] private bool _createWall = true;
         [ObservableProperty] private bool _createColumn = true;
         [ObservableProperty] private bool _createBeam = true;
@@ -117,7 +112,6 @@ namespace AutoCADToRevitApplication.ViewModels
             try
             {
                 var result = await Task.Run(ReadDwgFromRevit);
-
                 if (result == null)
                 {
                     SetStatus("Không tìm thấy file DWG trong model. Vui lòng Import file DWG vào Revit.", StatusType.Error);
@@ -125,12 +119,13 @@ namespace AutoCADToRevitApplication.ViewModels
                 }
 
                 _parsedGrids = result.Grids;
+                _parsedColumns = result.Columns;
 
                 foreach (var layer in result.Layers)
                     Layers.Add(layer);
 
                 UpdateCounts();
-                SetStatus($"Đã đọc DWG thành công! Lưới trục: {_parsedGrids.Count}", StatusType.Success);
+                SetStatus($"Đã đọc DWG thành công! Lưới trục: {_parsedGrids.Count}, Cột: {_parsedColumns.Count}", StatusType.Success);
                 IsFileLoaded = true;
             }
             catch (Exception ex)
@@ -142,6 +137,7 @@ namespace AutoCADToRevitApplication.ViewModels
         [RelayCommand]
         private void ApplyLayer()
         {
+            ReparseCurrentLayerMapping();
             UpdateCounts();
             SetStatus("Đã áp dụng gán layer. Kiểm tra thống kê bên dưới.", StatusType.Success);
         }
@@ -163,30 +159,54 @@ namespace AutoCADToRevitApplication.ViewModels
 
             try
             {
-                var service = new GridCreationService(_doc);
-                var result = service.CreateGrids(_parsedGrids);
-
-                if (result.Failed > 0)
+                var gridService = new GridCreationService(_doc);
+                var gridResult = gridService.CreateGrids(_parsedGrids);
+                if (gridResult.Failed > 0)
                 {
-                    SetStatus($"Đã tạo {result.Created} lưới trục, bỏ qua {result.Skipped}, lỗi {result.Failed}.", StatusType.Error);
+                    SetStatus($"Đã tạo {gridResult.Created} lưới trục, bỏ qua {gridResult.Skipped}, lỗi {gridResult.Failed}.", StatusType.Error);
                     return;
                 }
 
-                if (result.Created == 0)
+                var createdElementIds = new List<ElementId>(gridResult.CreatedElementIds);
+                var columnCreated = 0;
+                var columnSkipped = 0;
+
+                if (CreateColumn && _parsedColumns.Count > 0)
                 {
-                    SetStatus($"Không tạo thêm lưới trục mới. Bỏ qua: {result.Skipped}.", StatusType.Info);
+                    var columnService = new ColumnCreationService(_doc);
+                    var columnResult = columnService.CreateColumns(
+                        _parsedColumns,
+                        _parsedGrids,
+                        ParsePositiveDouble(FloorHeight, 3000.0),
+                        ParseDouble(ColumnBaseOffset, 0.0),
+                        ParseDouble(ColumnTopOffset, 0.0));
+
+                    columnCreated = columnResult.Created;
+                    columnSkipped = columnResult.Skipped;
+                    createdElementIds.AddRange(columnResult.CreatedElementIds);
+
+                    if (columnResult.Failed > 0)
+                    {
+                        SetStatus($"Đã tạo {gridResult.Created} lưới trục, {columnCreated} cột; lỗi cột {columnResult.Failed}.", StatusType.Error);
+                        return;
+                    }
+                }
+
+                if (createdElementIds.Count == 0)
+                {
+                    SetStatus($"Không tạo thêm cấu kiện mới. Lưới bỏ qua: {gridResult.Skipped}, cột bỏ qua: {columnSkipped}.", StatusType.Info);
                     return;
                 }
 
-                FocusCreatedGrids(result.CreatedElementIds);
-                var hiddenCadCount = service.HideDwgImportsInAllViews();
-                FocusCreatedGrids(result.CreatedElementIds);
-                SetStatus($"Đã tạo {result.Created} lưới trục trong Revit. Bỏ qua: {result.Skipped}.", StatusType.Success);
+                FocusCreatedElements(createdElementIds);
+                gridService.HideDwgImportsInAllViews();
+                FocusCreatedElements(createdElementIds);
+                SetStatus($"Đã tạo {gridResult.Created} lưới trục và {columnCreated} cột trong Revit. Bỏ qua lưới: {gridResult.Skipped}, cột: {columnSkipped}.", StatusType.Success);
                 RequestClose?.Invoke();
             }
             catch (Exception ex)
             {
-                SetStatus($"Lỗi vẽ lưới trục: {ex.Message}", StatusType.Error);
+                SetStatus($"Lỗi chuyển đổi sang 3D: {ex.Message}", StatusType.Error);
             }
         }
 
@@ -199,10 +219,20 @@ namespace AutoCADToRevitApplication.ViewModels
             var layers = reader.GetLayersFromInstance(instance);
             _mappingService.AutoMap(layers);
 
-            var gridLayerNames = layers
-                .Where(l => l.ElementType == "Lưới trục")
-                .Select(l => l.LayerName)
-                .ToList();
+            var result = ParseGeometryByLayer(reader, instance, layers);
+            DwgFileName = instance.Category?.Name ?? instance.Name ?? "DWG File";
+            result.Layers = layers;
+            return result;
+        }
+
+        private DwgReadResult ParseGeometryByLayer(
+            RevitDwgReaderService reader,
+            Element instance,
+            IEnumerable<DwgLayer> layers)
+        {
+            var layerList = layers.ToList();
+            var gridLayerNames = layerList.Where(IsGridLayer).Select(l => l.LayerName).ToList();
+            var columnLayerNames = layerList.Where(IsColumnLayer).Select(l => l.LayerName).ToList();
 
             var grids = reader.ReadGridLines(
                 instance,
@@ -215,16 +245,30 @@ namespace AutoCADToRevitApplication.ViewModels
                     YBottomToTop = YNamingDirection == "Dưới lên trên"
                 });
 
-            DwgFileName = instance.Category?.Name ?? instance.Name ?? "DWG File";
+            var geometryByLayer = reader.GetGeometryByLayer(instance);
+            var columns = new ColumnReaderService().ReadColumns(geometryByLayer, columnLayerNames);
 
             return new DwgReadResult
             {
-                Layers = layers,
-                Grids = grids
+                Grids = grids,
+                Columns = columns
             };
         }
 
-        private void FocusCreatedGrids(ICollection<ElementId> createdElementIds)
+        private void ReparseCurrentLayerMapping()
+        {
+            if (_doc == null || Layers.Count == 0) return;
+
+            var reader = new RevitDwgReaderService(_doc);
+            var instance = reader.FindDwgInstance();
+            if (instance == null) return;
+
+            var result = ParseGeometryByLayer(reader, instance, Layers);
+            _parsedGrids = result.Grids;
+            _parsedColumns = result.Columns;
+        }
+
+        private void FocusCreatedElements(ICollection<ElementId> createdElementIds)
         {
             if (_uiDoc == null || _doc == null || createdElementIds.Count == 0)
                 return;
@@ -254,8 +298,8 @@ namespace AutoCADToRevitApplication.ViewModels
         private void UpdateCounts()
         {
             GridCount = _parsedGrids.Count;
-            GridLayerCount = Layers.Count(l => l.ElementType == "Lưới trục");
-            ColumnCount = 0;
+            GridLayerCount = Layers.Count(IsGridLayer);
+            ColumnCount = _parsedColumns.Count;
             BeamCount = 0;
             SlabCount = 0;
         }
@@ -264,7 +308,20 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             GridCount = GridLayerCount = ColumnCount = BeamCount = SlabCount = 0;
             _parsedGrids.Clear();
+            _parsedColumns.Clear();
         }
+
+        private static bool IsGridLayer(DwgLayer layer)
+            => string.Equals(layer.ElementType, "Lưới trục", StringComparison.OrdinalIgnoreCase);
+
+        private static bool IsColumnLayer(DwgLayer layer)
+            => string.Equals(layer.ElementType, "Cột", StringComparison.OrdinalIgnoreCase);
+
+        private static double ParsePositiveDouble(string value, double fallback)
+            => double.TryParse(value, out var parsed) && parsed > 0 ? parsed : fallback;
+
+        private static double ParseDouble(string value, double fallback)
+            => double.TryParse(value, out var parsed) ? parsed : fallback;
 
         private enum StatusType { Info, Success, Error, Pending }
 
@@ -284,6 +341,7 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             public List<DwgLayer> Layers { get; set; } = new();
             public List<GridModel> Grids { get; set; } = new();
+            public List<ColumnModel> Columns { get; set; } = new();
         }
     }
 }

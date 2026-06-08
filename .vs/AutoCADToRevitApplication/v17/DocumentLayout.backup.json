@@ -19,10 +19,6 @@
       "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\layermappingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
@@ -91,7 +87,7 @@
               "RelativeDocumentMoniker": "Services\\Creation\\GridCreationService.cs",
               "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\GridCreationService.cs",
               "RelativeToolTip": "Services\\Creation\\GridCreationService.cs",
-              "ViewState": "AgIAAIcAAAAAAAAAAAAwwHEBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAuwHEBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-08T13:35:28.346Z",
               "EditorCaption": ""
@@ -106,12 +102,11 @@
               "RelativeToolTip": "Services\\Parsing\\RevitDwgReaderService.cs",
               "ViewState": "AgIAAEcAAAAAAAAAAAAwwDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T08:27:58.603Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-08T08:27:58.603Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.config",
               "RelativeDocumentMoniker": "App.config",
@@ -123,7 +118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
@@ -134,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "AutoCADToRevitApplication.csproj",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\AutoCADToRevitApplication.csproj",
               "RelativeDocumentMoniker": "AutoCADToRevitApplication.csproj",
@@ -146,19 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAhwCoAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T02:41:24.803Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "Command.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Command.cs",
               "RelativeDocumentMoniker": "Command.cs",
@@ -170,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "App.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.cs",
               "RelativeDocumentMoniker": "App.cs",
@@ -182,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "GridParser.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\GridParser.cs",
               "RelativeDocumentMoniker": "Services\\Parsing\\GridParser.cs",
@@ -218,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Views\\MainWindow.xaml.cs",
@@ -230,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -242,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "GridModel.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\GridModel.cs",
               "RelativeDocumentMoniker": "Models\\Elements\\GridModel.cs",
@@ -254,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "DwgLayer.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\DwgLayer.cs",
               "RelativeDocumentMoniker": "Models\\Mapping\\DwgLayer.cs",
@@ -266,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "MainWindow.g.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
@@ -278,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "RevitCreationResult.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\RevitCreationResult.cs",
               "RelativeDocumentMoniker": "Models\\Mapping\\RevitCreationResult.cs",
@@ -290,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "cad2revit.png - PNG [32x32, 24 bit, PNG]",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Images\\cad2revit.png",
               "RelativeDocumentMoniker": "Images\\cad2revit.png",

@@ -141,8 +141,17 @@
                             <Label Content="mm" Style="{StaticResource UnitLabel}"/>
                         </WrapPanel>
 
+                        <WrapPanel Margin="0,0,0,10">
+                            <Label Content="Base Offset cot:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding ColumnBaseOffset}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                            <Label Content="Top Offset cot:" Style="{StaticResource FieldLabel}" Margin="24,0,0,0"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding ColumnTopOffset}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                        </WrapPanel>
+
                         <WrapPanel>
-                            <Label Content="Dầm (rộng x cao):" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <Label Content="Dam (rong x cao):" Style="{StaticResource FieldLabel}" Width="140"/>
                             <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamWidth}"/>
                             <Label Content="x" Style="{StaticResource UnitLabel}" Padding="4,0"/>
                             <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamHeight}"/>
