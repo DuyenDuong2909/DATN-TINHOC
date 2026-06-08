@@ -1,60 +1,22 @@
-﻿<Window x:Class="AutoCADToRevitApplication.Views.MainWindow"
+<Window x:Class="AutoCADToRevitApplication.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Dựng mô hình 3D từ bản vẽ AutoCAD"
-        Height="620" Width="900"
-        MinHeight="600" MinWidth="860"
+        Title="CAD 2D → Revit 3D Converter"
+        Height="680" Width="960"
+        MinHeight="640" MinWidth="900"
         WindowStartupLocation="CenterScreen"
         Background="#F4F6F9"
         FontFamily="Segoe UI">
-    <Window.Resources>
-        <!-- Màu sắc chủ đạo -->
-        <Color x:Key="PrimaryBlue">#1565C0</Color>
-        <Color x:Key="PrimaryGreen">#2E7D32</Color>
-        <Color x:Key="LightGray">#ECEFF1</Color>
 
-        <!-- Style cho GroupBox -->
+    <Window.Resources>
         <Style x:Key="CardGroupBox" TargetType="GroupBox">
             <Setter Property="BorderBrush" Value="#CFD8DC"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Padding" Value="12,8,12,12"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GroupBox">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Border Grid.Row="0" Grid.RowSpan="2"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="6">
-                                <Border.Effect>
-                                    <DropShadowEffect Color="#000000" Opacity="0.06"
-                                                      BlurRadius="8" ShadowDepth="2"/>
-                                </Border.Effect>
-                            </Border>
-                            <Border Grid.Row="0" Background="#1565C0"
-                                    CornerRadius="6,6,0,0" Padding="12,6">
-                                <ContentPresenter ContentSource="Header"
-                                                  TextBlock.Foreground="White"
-                                                  TextBlock.FontWeight="SemiBold"
-                                                  TextBlock.FontSize="13"/>
-                            </Border>
-                            <ContentPresenter Grid.Row="1"
-                                              Margin="{TemplateBinding Padding}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
 
-        <!-- Style cho Label thông thường -->
         <Style x:Key="FieldLabel" TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Padding" Value="0,0,6,0"/>
@@ -62,7 +24,6 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
 
-        <!-- Style cho UnitLabel (mm, tầng...) -->
         <Style x:Key="UnitLabel" TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Foreground" Value="#78909C"/>
@@ -70,27 +31,23 @@
             <Setter Property="Padding" Value="2,0,8,0"/>
         </Style>
 
-        <!-- Style cho TextBox -->
         <Style x:Key="InputTextBox" TargetType="TextBox">
             <Setter Property="Width" Value="70"/>
             <Setter Property="Height" Value="30"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="6,0"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="BorderBrush" Value="#B0BEC5"/>
-            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="#FAFAFA"/>
-            <Setter Property="Foreground" Value="#263238"/>
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#1565C0"/>
-                    <Setter Property="Background" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
-        <!-- Style cho CheckBox -->
+        <Style x:Key="InputComboBox" TargetType="ComboBox">
+            <Setter Property="Width" Value="128"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
         <Style x:Key="ElementCheckBox" TargetType="CheckBox">
             <Setter Property="Margin" Value="0,6,0,6"/>
             <Setter Property="FontSize" Value="13"/>
@@ -98,108 +55,30 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Style cho nút Xanh Dương -->
         <Style x:Key="BlueButton" TargetType="Button">
             <Setter Property="Background" Value="#1565C0"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Padding" Value="14,8"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#1976D2"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#0D47A1"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="#B0BEC5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
-        <!-- Style cho nút Xanh Lá -->
-        <Style x:Key="GreenButton" TargetType="Button">
+        <Style x:Key="GreenButton" TargetType="Button" BasedOn="{StaticResource BlueButton}">
             <Setter Property="Background" Value="#2E7D32"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#388E3C"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1B5E20"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="#B0BEC5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
-        <!-- Style cho nút Trắng/Viền -->
         <Style x:Key="OutlineButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="#37474F"/>
             <Setter Property="BorderBrush" Value="#B0BEC5"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Padding" Value="14,8"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#ECEFF1"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#CFD8DC"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
-        <!-- Style cho số đếm Thống kê -->
         <Style x:Key="StatCountLabel" TargetType="Label">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -214,122 +93,104 @@
             <Setter Property="Padding" Value="0,0,4,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-
     </Window.Resources>
 
-    <!-- Layout chính: 1 cột, nhiều hàng -->
     <Grid Margin="16,12,16,12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Row 0: Status bar -->
             <RowDefinition Height="Auto"/>
-            <!-- Row 1: Panel trên (Thông số + Tạo cấu kiện) -->
             <RowDefinition Height="*"/>
-            <!-- Row 2: Layer CAD -->
             <RowDefinition Height="Auto"/>
-            <!-- Row 3: Thống kê -->
             <RowDefinition Height="Auto"/>
-            <!-- Row 4: Buttons -->
         </Grid.RowDefinitions>
 
-        <!-- ═══════════════════════════════════════════════ -->
-        <!-- ROW 0: Status Message -->
-        <!-- ═══════════════════════════════════════════════ -->
         <Border Grid.Row="0" Background="White" CornerRadius="6"
                 BorderBrush="#CFD8DC" BorderThickness="1"
                 Padding="12,8" Margin="0,0,0,10">
-            <Label x:Name="StatusLabel"
-                   Content="Chưa đọc file CAD. Vui lòng nhấn 'Đọc CAD' để bắt đầu."
-                   Foreground="#78909C"
+            <Label Content="{Binding StatusMessage}"
+                   Foreground="{Binding StatusColor}"
                    FontSize="13" FontStyle="Italic"
                    Padding="0" VerticalAlignment="Center"/>
         </Border>
 
-        <!-- ═══════════════════════════════════════════════ -->
-        <!-- ROW 1: Thông số nhập tay + Tạo cấu kiện -->
-        <!-- ═══════════════════════════════════════════════ -->
         <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="280"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Panel trái: Thông số nhập tay -->
-            <GroupBox Grid.Column="0" Header="Thông số nhập tay"
-                      Style="{StaticResource CardGroupBox}">
-                <Grid Margin="0,8,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0">
+                <GroupBox Header="Thông số nhập tay" Style="{StaticResource CardGroupBox}">
+                    <StackPanel Margin="0,8,0,0">
+                        <WrapPanel Margin="0,0,0,10">
+                            <Label Content="Chiều cao tầng 1:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding FloorHeight}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                            <Label Content="H tầng ĐH:" Style="{StaticResource FieldLabel}" Margin="8,0,0,0"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding TypicalHeight}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                        </WrapPanel>
 
-                    <!-- Chiều cao tầng 1 + H tầng ĐH -->
-                    <WrapPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="Chiều cao tầng 1:" Style="{StaticResource FieldLabel}" Width="140"/>
-                        <TextBox x:Name="TxtFloorHeight" Style="{StaticResource InputTextBox}" Text="4300"/>
-                        <Label Content="mm" Style="{StaticResource UnitLabel}"/>
-                        <Label Content="H tầng ĐH:" Style="{StaticResource FieldLabel}" Margin="8,0,0,0"/>
-                        <TextBox x:Name="TxtTypicalHeight" Style="{StaticResource InputTextBox}" Text="3900"/>
-                        <Label Content="mm" Style="{StaticResource UnitLabel}"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,0,0,10">
+                            <Label Content="Số tầng:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding NumberOfFloors}"/>
+                            <Label Content="tầng" Style="{StaticResource UnitLabel}"/>
+                            <Label Content="Độ dày sàn:" Style="{StaticResource FieldLabel}" Margin="24,0,0,0"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding SlabThickness}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                        </WrapPanel>
 
-                    <!-- Số tầng -->
-                    <WrapPanel Grid.Row="2" Orientation="Horizontal">
-                        <Label Content="Số tầng:" Style="{StaticResource FieldLabel}" Width="140"/>
-                        <TextBox x:Name="TxtNumberOfFloors" Style="{StaticResource InputTextBox}" Text="1"/>
-                        <Label Content="tầng" Style="{StaticResource UnitLabel}"/>
-                    </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="Dầm (rộng x cao):" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamWidth}"/>
+                            <Label Content="x" Style="{StaticResource UnitLabel}" Padding="4,0"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamHeight}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </GroupBox>
 
-                    <!-- Độ dày sàn -->
-                    <WrapPanel Grid.Row="4" Orientation="Horizontal">
-                        <Label Content="Độ dày sàn:" Style="{StaticResource FieldLabel}" Width="140"/>
-                        <TextBox x:Name="TxtSlabThickness" Style="{StaticResource InputTextBox}" Text="130"/>
-                        <Label Content="mm" Style="{StaticResource UnitLabel}"/>
-                    </WrapPanel>
+                <GroupBox Header="Quy ước lưới trục" Style="{StaticResource CardGroupBox}">
+                    <StackPanel Margin="0,8,0,0">
+                        <WrapPanel Margin="0,0,0,10">
+                            <Label Content="Tên bắt đầu X:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding XStartName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="Hướng X:" Style="{StaticResource FieldLabel}" Margin="24,0,0,0"/>
+                            <ComboBox Style="{StaticResource InputComboBox}"
+                                      SelectedValuePath="Content"
+                                      SelectedValue="{Binding XNamingDirection}">
+                                <ComboBoxItem Content="Trái sang phải"/>
+                                <ComboBoxItem Content="Phải sang trái"/>
+                            </ComboBox>
+                        </WrapPanel>
 
-                    <!-- Dầm rộng × cao -->
-                    <WrapPanel Grid.Row="6" Orientation="Horizontal">
-                        <Label Content="Dầm (rộng × cao):" Style="{StaticResource FieldLabel}" Width="140"/>
-                        <TextBox x:Name="TxtBeamWidth" Style="{StaticResource InputTextBox}" Text="300"/>
-                        <Label Content="×" Style="{StaticResource UnitLabel}" Padding="4,0"/>
-                        <TextBox x:Name="TxtBeamHeight" Style="{StaticResource InputTextBox}" Text="700"/>
-                        <Label Content="mm" Style="{StaticResource UnitLabel}"/>
-                    </WrapPanel>
-                </Grid>
-            </GroupBox>
+                        <WrapPanel>
+                            <Label Content="Tên bắt đầu Y:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding YStartName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="Hướng Y:" Style="{StaticResource FieldLabel}" Margin="24,0,0,0"/>
+                            <ComboBox Style="{StaticResource InputComboBox}"
+                                      SelectedValuePath="Content"
+                                      SelectedValue="{Binding YNamingDirection}">
+                                <ComboBoxItem Content="Dưới lên trên"/>
+                                <ComboBoxItem Content="Trên xuống dưới"/>
+                            </ComboBox>
+                        </WrapPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
 
-            <GroupBox Grid.Column="2" Header="Tạo cấu kiện"
-                      Style="{StaticResource CardGroupBox}">
+            <GroupBox Grid.Column="2" Header="Tạo cấu kiện" Style="{StaticResource CardGroupBox}">
                 <StackPanel Margin="0,8,0,0">
-                    <CheckBox x:Name="ChkGrid"
-                              Content="Tạo Lưới trục"
-                              IsChecked="True"
-                              Style="{StaticResource ElementCheckBox}"/>
-                    <CheckBox x:Name="ChkColumn"
-                              Content="Tạo Cột"
-                              IsChecked="True"
-                              Style="{StaticResource ElementCheckBox}"/>
-                    <CheckBox x:Name="ChkBeam"
-                              Content="Tạo Dầm"
-                              IsChecked="True"
-                              Style="{StaticResource ElementCheckBox}"/>
-                    <CheckBox x:Name="ChkSlab"
-                              Content="Tạo Sàn"
-                              IsChecked="True"
-                              Style="{StaticResource ElementCheckBox}"/>
+                    <CheckBox Content="Tạo Lưới trục (Grid)" IsChecked="{Binding CreateWall}" Style="{StaticResource ElementCheckBox}"/>
+                    <CheckBox Content="Tạo Cột (Column)" IsChecked="{Binding CreateColumn}" Style="{StaticResource ElementCheckBox}"/>
+                    <CheckBox Content="Tạo Dầm (Beam)" IsChecked="{Binding CreateBeam}" Style="{StaticResource ElementCheckBox}"/>
+                    <CheckBox Content="Tạo Sàn (Floor)" IsChecked="{Binding CreateSlab}" Style="{StaticResource ElementCheckBox}"/>
                 </StackPanel>
             </GroupBox>
         </Grid>
 
-        <GroupBox Grid.Row="2" Header="Layer CAD - DTD - 0257867"
-                  Style="{StaticResource CardGroupBox}"
-                  Margin="0,0,0,10">
+        <GroupBox Grid.Row="2" Header="Layer CAD" Style="{StaticResource CardGroupBox}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -337,16 +198,25 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label DockPanel.Dock="Left"
-                           Content="Xác nhận các cấu kiện đọc từ file AutoCAD:"
-                           Foreground="#546E7A" FontSize="12"
-                           VerticalAlignment="Center" Padding="0"/>
-                <Button x:Name="BtnApplyLayer"
-                            Content="Áp dụng Gán Layer"
-                            Style="{StaticResource BlueButton}" Width="186" Margin="658,0,0,0"/>
+                <DockPanel Grid.Row="0">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <Label Content="File:" Foreground="#546E7A" FontSize="12"
+                               VerticalAlignment="Center" Padding="0,0,4,0"/>
+                        <Label Content="{Binding DwgFileName}"
+                               Foreground="#1565C0" FontSize="12" FontWeight="SemiBold"
+                               VerticalAlignment="Center" Padding="0"/>
+                    </StackPanel>
 
-                <DataGrid x:Name="LayerDataGrid"
-                          Grid.Row="2"
+                    <Button DockPanel.Dock="Right"
+                            Content="Áp dụng Gán Layer"
+                            Style="{StaticResource BlueButton}"
+                            Command="{Binding ApplyLayerCommand}"
+                            IsEnabled="{Binding IsFileLoaded}"
+                            Height="32" Margin="8,0,0,0"/>
+                </DockPanel>
+
+                <DataGrid Grid.Row="2"
+                          ItemsSource="{Binding Layers}"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
@@ -355,112 +225,91 @@
                           SelectionMode="Single"
                           GridLinesVisibility="Horizontal"
                           HorizontalGridLinesBrush="#ECEFF1"
-                          BorderBrush="#CFD8DC"
-                          BorderThickness="1"
+                          BorderBrush="#CFD8DC" BorderThickness="1"
                           Background="White"
-                          RowBackground="White"
                           AlternatingRowBackground="#F8FAFC"
                           HeadersVisibility="Column"
-                          FontSize="13"
-                          RowHeight="34">
-
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="#ECEFF1"/>
-                            <Setter Property="Foreground" Value="#37474F"/>
-                            <Setter Property="FontWeight" Value="SemiBold"/>
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="Padding" Value="10,8"/>
-                            <Setter Property="BorderBrush" Value="#CFD8DC"/>
-                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="#BBDEFB"/>
-                                    <Setter Property="Foreground" Value="#0D47A1"/>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#E3F2FD"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-
+                          FontSize="13" RowHeight="34">
                     <DataGrid.Columns>
-                        <!-- Cột 1: Tên Layer -->
                         <DataGridTextColumn Header="Tên Layer trong file CAD"
                                             Binding="{Binding LayerName}"
-                                            Width="*"
-                                            IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Padding" Value="10,0"/>
-                                    <Setter Property="Foreground" Value="#263238"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <!-- Cột 2: Loại cấu kiện (ComboBox) -->
+                                            Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Số entity"
+                                            Binding="{Binding EntityCount}"
+                                            Width="80" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Nguồn"
+                                            Binding="{Binding MappingSource}"
+                                            Width="90" IsReadOnly="True"/>
                         <DataGridComboBoxColumn Header="Loại cấu kiện"
                                                 SelectedItemBinding="{Binding ElementType, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="200">
+                                                Width="160">
                             <DataGridComboBoxColumn.ItemsSource>
                                 <x:Array Type="system:String"
                                          xmlns:system="clr-namespace:System;assembly=mscorlib">
                                     <system:String>Bỏ qua</system:String>
+                                    <system:String>Lưới trục</system:String>
                                     <system:String>Tường</system:String>
                                     <system:String>Cột</system:String>
                                     <system:String>Dầm</system:String>
                                     <system:String>Sàn</system:String>
                                 </x:Array>
                             </DataGridComboBoxColumn.ItemsSource>
-                            <DataGridComboBoxColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Padding" Value="10,0"/>
-                                </Style>
-                            </DataGridComboBoxColumn.ElementStyle>
                         </DataGridComboBoxColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </GroupBox>
+
+        <GroupBox Grid.Row="3" Header="Thống kê" Style="{StaticResource CardGroupBox}">
+            <StackPanel Orientation="Horizontal" Margin="0,6,0,2">
+                <Label Content="Lưới trục:" Style="{StaticResource StatNameLabel}"/>
+                <Label Content="{Binding GridCount}" Style="{StaticResource StatCountLabel}"/>
+                <Label Content="Layer lưới trục:" Style="{StaticResource StatNameLabel}"/>
+                <Label Content="{Binding GridLayerCount}" Style="{StaticResource StatCountLabel}"/>
+                <Label Content="Cột:" Style="{StaticResource StatNameLabel}"/>
+                <Label Content="{Binding ColumnCount}" Style="{StaticResource StatCountLabel}"/>
+                <Label Content="Dầm:" Style="{StaticResource StatNameLabel}"/>
+                <Label Content="{Binding BeamCount}" Style="{StaticResource StatCountLabel}"/>
+                <Label Content="Sàn:" Style="{StaticResource StatNameLabel}"/>
+                <Label Content="{Binding SlabCount}" Style="{StaticResource StatCountLabel}"/>
+            </StackPanel>
+        </GroupBox>
+
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="BtnReadCad"
-                    Grid.Column="0"
+            <Button Grid.Column="0"
+                    Content="Import DWG"
+                    Style="{StaticResource OutlineButton}"
+                    Command="{Binding ImportDwgCommand}"
+                    Height="38" MinWidth="130"/>
+
+            <Button Grid.Column="2"
                     Content="Đọc CAD"
                     Style="{StaticResource BlueButton}"
-                    Height="38" MinWidth="120"
-                    Click="BtnReadCad_Click"/>
+                    Command="{Binding ReadCadCommand}"
+                    Height="38" MinWidth="120"/>
 
-            <Button x:Name="BtnConvert"
-                    Grid.Column="2"
+            <Button Grid.Column="4"
                     Content="Chuyển đổi sang 3D"
                     Style="{StaticResource GreenButton}"
-                    Height="38" MinWidth="180"
-                    IsEnabled="False"
-                    Click="BtnConvert_Click"/>
+                    Command="{Binding ConvertTo3DCommand}"
+                    IsEnabled="{Binding IsFileLoaded}"
+                    Height="38" MinWidth="180"/>
 
-            <Button x:Name="BtnClose"
-                    Grid.Column="4"
+            <Button Grid.Column="6"
                     Content="Đóng"
                     Style="{StaticResource OutlineButton}"
                     Height="38" MinWidth="80"
                     Click="BtnClose_Click"/>
         </Grid>
-
     </Grid>
 </Window>

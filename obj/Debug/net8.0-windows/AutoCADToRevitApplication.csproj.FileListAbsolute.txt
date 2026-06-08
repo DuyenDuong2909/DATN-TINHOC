@@ -1,3 +1,4 @@
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\Images\cad2revit.png
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\AutoCADToRevitApplication.deps.json
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\AutoCADToRevitApplication.dll
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\AutoCADToRevitApplication.pdb
@@ -92,17 +93,28 @@ C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\zh-CN\AdWindows.resources.dll
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\zh-TW\AdWindows.resources.dll
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.csproj.AssemblyReference.cache
-C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\Views\MainWindow.baml
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\Views\MainWindow.g.cs
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication_MarkupCompile.cache
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\Views\MainWindow.baml
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.g.resources
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.AssemblyInfoInputs.cache
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.AssemblyInfo.cs
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.csproj.CoreCompileInputs.cache
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.sourcelink.json
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADT.0F4EB20C.Up2Date
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.dll
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\refint\AutoCADToRevitApplication.dll
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\AutoCADToRevitApplication.pdb
 C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\obj\Debug\net8.0-windows\ref\AutoCADToRevitApplication.dll
-C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\Images\cad2revit.png
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\CommunityToolkit.Mvvm.dll
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\THINKPAD P14S\Downloads\DATN-TINHOC\AutoCADToRevitApplication\bin\Debug\net8.0-windows\AutoCADToRevitApplication.dll.config
+C:\tmp\AutoCADToRevitApplication-build\Images\cad2revit.png
+C:\tmp\AutoCADToRevitApplication-build\AutoCADToRevitApplication.dll.config
+C:\tmp\AutoCADToRevitApplication-build\AutoCADToRevitApplication.deps.json
+C:\tmp\AutoCADToRevitApplication-build\AutoCADToRevitApplication.dll
+C:\tmp\AutoCADToRevitApplication-build\AutoCADToRevitApplication.pdb

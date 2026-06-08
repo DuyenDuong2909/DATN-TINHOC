@@ -6,9 +6,18 @@
 		<UseWPF>true</UseWPF>
 		<PlatformTarget>x64</PlatformTarget>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<AddInId>3F5C78A3-405F-47F2-8981-4F63ADE15DC8</AddInId>
 		<AssemblyName>AutoCADToRevitApplication</AssemblyName>
 		<RootNamespace>AutoCADToRevitApplication</RootNamespace>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="ViewModels\MainViewModel\**" />
+	  <EmbeddedResource Remove="ViewModels\MainViewModel\**" />
+	  <None Remove="ViewModels\MainViewModel\**" />
+	  <Page Remove="ViewModels\MainViewModel\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
@@ -26,26 +35,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
 		<Folder Include="Images\" />
-		<Folder Include="Services\" />
-		<Folder Include="ViewModels\" />
+		<Folder Include="Models\Elements\" />
+		<Folder Include="Models\Mapping\" />
+		<Folder Include="Services\Parsing\" />
 		<Folder Include="Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="acdbmgd">
-			<HintPath>C:\Program Files\Autodesk\AutoCAD 2024\acdbmgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="accoremgd">
-			<HintPath>C:\Program Files\Autodesk\AutoCAD 2024\accoremgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="acmgd">
-			<HintPath>C:\Program Files\Autodesk\AutoCAD 2024\acmgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>

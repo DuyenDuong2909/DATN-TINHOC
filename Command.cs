@@ -1,4 +1,5 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using AutoCADToRevitApplication.Views;
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
@@ -17,13 +18,28 @@ namespace AutoCADToRevitApplication
                               ref string message,
                               ElementSet elements)
         {
-            UIApplication uiApp = commandData.Application;
-            UIDocument uiDoc = uiApp.ActiveUIDocument;
+            try
+            {
+                var window = new MainWindow(commandData.Application);
+                window.ShowDialog();
+                return Result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                // Lấy lỗi gốc sâu nhất
+                Exception inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
 
-            var window = new Views.MainWindow(uiApp);
-            window.ShowDialog();
+                TaskDialog.Show("Lỗi Chi Tiết",
+                    $"Loại lỗi: {inner.GetType().FullName}\n\n" +
+                    $"Thông báo: {inner.Message}\n\n" +
+                    $"Stack:\n{inner.StackTrace}");
 
-            return Result.Succeeded;
+                message = inner.Message;
+                return Result.Failed;
+            }
         }
     }
 }
+ 
