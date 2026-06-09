@@ -191,7 +191,7 @@
 
             <GroupBox Grid.Column="2" Header="Tạo cấu kiện" Style="{StaticResource CardGroupBox}">
                 <StackPanel Margin="0,8,0,0">
-                    <CheckBox Content="Tạo Lưới trục (Grid)" IsChecked="{Binding CreateWall}" Style="{StaticResource ElementCheckBox}"/>
+                    <CheckBox Content="Tạo Lưới trục (Grid)" IsChecked="{Binding CreateGrid}" Style="{StaticResource ElementCheckBox}"/>
                     <CheckBox Content="Tạo Cột (Column)" IsChecked="{Binding CreateColumn}" Style="{StaticResource ElementCheckBox}"/>
                     <CheckBox Content="Tạo Dầm (Beam)" IsChecked="{Binding CreateBeam}" Style="{StaticResource ElementCheckBox}"/>
                     <CheckBox Content="Tạo Sàn (Floor)" IsChecked="{Binding CreateSlab}" Style="{StaticResource ElementCheckBox}"/>

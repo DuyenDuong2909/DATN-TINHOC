@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:body>
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>ĐỌC HIỂU CODE - BẢN DỄ HIỂU</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Mục tiêu: </w:t></w:r><w:r><w:t>giải thích cô đọng từng chức năng trong project để người không chuyên code vẫn nắm được luồng xử lý. Các phần quan trọng được in đậm, code mẫu được ghi rõ vị trí file.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>1. ĐỌC LƯỚI TRỤC TỪ CAD</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Mục đích</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Đọc các đường lưới trục từ file CAD đã import vào Revit. Code đọc hình học đường thẳng, gồm Line và PolyLine.</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Quan trọng: </w:t></w:r><w:r><w:t>hiện tại code không đọc text tên trục, không đọc dimension, không đọc bubble/ký hiệu đầu trục.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Vị trí trong project</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• File chính: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Services/Parsing/RevitDwgReaderService.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Model lưu kết quả: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Models/Elements/GridModel.cs</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Hàm chính</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>public List&lt;GridModel&gt; ReadGridLines(Element dwgInstance, IEnumerable&lt;string&gt; gridLayerNames, GridNamingOptions namingOptions)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Hàm này nhận CAD đã import, danh sách layer lưới trục và quy tắc đặt tên X/Y, sau đó trả về danh sách GridModel.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Lệnh Revit API quan trọng</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>var geomElem = dwgInstance.get_Geometry(options);</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Lệnh này lấy toàn bộ hình học CAD mà Revit đọc được, ví dụ Line, PolyLine, Curve, GeometryInstance.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách xác định vị trí và phương lưới</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Với Line: lấy 2 điểm đầu/cuối bằng line.GetEndPoint(0) và line.GetEndPoint(1).</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Với PolyLine: lấy danh sách điểm bằng polyLine.GetCoordinates().</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Hàm TryGetAxisDirection(...) tính góc đường để biết là ngang hay dọc.</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Ý chính: </w:t></w:r><w:r><w:t>code nhận biết lưới trục bằng layer CAD, sau đó dùng 2 điểm đầu/cuối để xác định vị trí, chiều dài và phương.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>2. VẼ LƯỚI TRỤC TRONG REVIT</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Mục đích</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Từ dữ liệu GridModel đã đọc được, tạo Revit Grid thật trong model.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Vị trí trong project</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• File chính: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Services/Creation/GridCreationService.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Model kết quả: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Models/Results/GridCreationResult.cs</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Hàm chính</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>public GridCreationResult CreateGrids(IReadOnlyCollection&lt;GridModel&gt; gridModels)</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Lệnh tạo Grid</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>var line = Line.CreateBound(startXYZ, endXYZ);</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>var grid = Grid.Create(_doc, line);</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Line.CreateBound tạo đường Revit từ 2 điểm. Grid.Create biến đường đó thành Revit Grid.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách đặt vị trí Grid</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Lấy StartPoint và EndPoint từ CAD.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Tính tâm toàn bộ hệ lưới bằng GridPlacement.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Dịch hệ tọa độ CAD về gần gốc Revit.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Đổi đơn vị từ mm sang feet bằng UnitUtils.ConvertToInternalUnits(...).</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách gắn với Level</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>grid.SetVerticalExtents(verticalExtents.Bottom, verticalExtents.Top);</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Lệnh này kéo Grid theo phương đứng để Grid hiển thị qua các Level. Hàm UpdateLevelExtentsInElevationViews(...) kéo chiều dài Level trong các mặt đứng để phủ hệ Grid.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Ẩn CAD sau khi tạo</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>view.HideElements(idsToHide)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Sau khi tạo xong Grid, code ẩn CAD import để tránh bản CAD chồng lên đối tượng Revit.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>3. ĐỌC CỘT TỪ CAD</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Mục đích</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Đọc footprint cột từ CAD, xác định tâm cột và kích thước b x h để chuẩn bị vẽ cột trong Revit.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Vị trí trong project</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• File chính: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Services/Parsing/ColumnReaderService.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Model lưu kết quả: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Models/Elements/ColumnModel.cs</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Hàm chính</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>public List&lt;ColumnModel&gt; ReadColumns(Dictionary&lt;string, List&lt;GeometryObject&gt;&gt; geometryByLayer, IEnumerable&lt;string&gt; columnLayerNames)</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Dữ liệu cột gồm gì?</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• LayerName: layer CAD chứa cột.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• CenterPoint: tâm cột đọc từ CAD, đơn vị mm.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Width: kích thước theo phương X CAD.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Height: kích thước theo phương Y CAD.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• RotationDegrees: góc xoay; với cột song song lưới hiện là 0.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Luồng đọc cột</w:t></w:r></w:p>
+    <w:p><w:r><w:t>1. Chỉ xử lý PolyLine.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>2. Lấy các điểm bằng polyLine.GetCoordinates().</w:t></w:r></w:p>
+    <w:p><w:r><w:t>3. Chỉ nhận polyline có đúng 4 điểm sau khi bỏ điểm trùng.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>4. Kiểm tra 4 cạnh tạo thành hình chữ nhật.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>5. Tính tâm cột bằng trung bình tọa độ 4 điểm.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>6. Tính kích thước theo phương X/Y CAD.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>if (geometryObject is not PolyLine polyLine) return null;</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách tính tâm cột</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>center = new Point2D(points.Average(p =&gt; p.X), points.Average(p =&gt; p.Y));</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Quan trọng: </w:t></w:r><w:r><w:t>theo lưu đồ, tâm cột là dữ liệu chính để xác định vị trí cột.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách tính b x h hiện tại</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Code hiện tại không lấy cạnh ngắn/cạnh dài nữa. Code đọc theo phương CAD:</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Kích thước theo phương X CAD -> Width.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Kích thước theo phương Y CAD -> Height.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>TryGetAxisAlignedDimensions(edges, out width, out height, out rotationDegrees)</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Lý do: </w:t></w:r><w:r><w:t>tránh lỗi cột nằm ngang trong CAD nhưng sang Revit bị dựng dọc.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>4. VẼ CỘT TRONG REVIT</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Mục đích</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Tạo Structural Column trong Revit từ dữ liệu cột đã đọc từ CAD. Cột phải đặt theo lưới trục đã vẽ trước đó.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Vị trí trong project</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• File chính: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Services/Creation/ColumnCreationService.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Model kết quả: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Models/Results/ColumnCreationResult.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Nơi gọi service: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>ViewModels/MainViewModel.cs</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Hàm chính</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>public ColumnCreationResult CreateColumns(IReadOnlyCollection&lt;ColumnModel&gt; columnModels, IReadOnlyCollection&lt;GridModel&gt; gridModels, double fallbackStoryHeightMm, double baseOffsetMm, double topOffsetMm)</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách xác định vị trí cột</w:t></w:r></w:p>
+    <w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Quan trọng: </w:t></w:r><w:r><w:t>cột không đặt tự do. Cột phải phát triển từ giao điểm lưới trục.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>1. Lấy tâm cột từ CAD: ColumnModel.CenterPoint.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>2. Tìm trục dọc có X trùng với tâm cột.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>3. Tìm trục ngang có Y trùng với tâm cột.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>4. Giao điểm 2 trục là điểm đặt cột trong Revit.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>placement.TryResolveColumnPoint(columnModel.CenterPoint, out var resolvedPoint)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Nếu không tìm được giao điểm lưới, code không vẽ cột và báo lỗi.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Family cột mặc định</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>M_Concrete-Rectangular-Column</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Nếu project chưa load family này, code báo lỗi để người dùng load/chọn đúng family. Code không tự lấy family khác để tránh sai hướng local và sai parameter.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách tạo type theo b x h</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Nếu type đúng kích thước chưa có, code duplicate type mới theo chuẩn family, ví dụ 400 x 500mm.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách set kích thước b x h</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>TrySetParameter(symbol, new[] { "b", "B", "Width", "WIDTH" }, widthMm)</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>TrySetParameter(symbol, new[] { "h", "H", "Depth", "DEPTH", "Height", "HEIGHT" }, heightMm)</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Base Level, Top Level và Offset</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Base Level: ưu tiên Level 1.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Top Level: lấy level kế tiếp phía trên Base Level.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Base Offset và Top Offset: người dùng nhập trên giao diện, đơn vị mm.</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>BuiltInParameter.FAMILY_BASE_LEVEL_PARAM</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>BuiltInParameter.FAMILY_TOP_LEVEL_PARAM</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Cách cập nhật cột cũ</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Cột do tool tạo được đánh dấu bằng comment AutoCADToRevitApplication. Lần chạy sau, code xóa các cột đã đánh dấu để tạo lại đúng vị trí và kích thước.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>5. LUỒNG CHUYỂN ĐỔI TỪ GIAO DIỆN</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• ViewModel: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>ViewModels/MainViewModel.cs</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Giao diện: </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>Views/MainWindow.xaml</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="CodeBlock"/></w:pPr><w:r><w:t>private void ConvertTo3D()</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Luồng chạy: đọc CAD -> tạo Grid -> tạo cột nếu được bật -> truyền Base/Top Offset -> ẩn CAD -> focus phần tử vừa tạo.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>6. TÓM TẮT NGẮN GỌN</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Lưới trục: đọc Line/PolyLine theo layer, lấy 2 điểm đầu/cuối, tạo Revit Grid.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Cột: đọc PolyLine hình chữ nhật, lấy tâm và kích thước theo X/Y CAD.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Vị trí cột: phải nằm trên giao điểm lưới trục.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Family cột: M_Concrete-Rectangular-Column.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Level cột: xuất phát từ Level 1, top là level phía trên.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>• Đơn vị nhập: mm; trước khi gọi Revit API sẽ đổi sang feet.</w:t></w:r></w:p>
+
+    <w:sectPr>
+      <w:pgSz w:w="11906" w:h="16838"/>
+      <w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="720" w:footer="720" w:gutter="0"/>
+    </w:sectPr>
+  </w:body>
+</w:document>
