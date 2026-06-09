@@ -149,8 +149,22 @@ namespace AutoCADToRevitApplication.Services.Parsing
                     case PolyLine poly:
                         AddToLayer(result, GetLayerName(poly), poly);
                         break;
+
+                    default:
+                        if (HasReadableText(obj))
+                            AddToLayer(result, GetLayerName(obj), obj);
+                        break;
                 }
             }
+        }
+
+        private static bool HasReadableText(GeometryObject obj)
+        {
+            var type = obj.GetType();
+            return type.GetProperty("Text")?.PropertyType == typeof(string) ||
+                   type.GetProperty("TextString")?.PropertyType == typeof(string) ||
+                   type.GetProperty("Contents")?.PropertyType == typeof(string) ||
+                   type.GetProperty("Value")?.PropertyType == typeof(string);
         }
 
         private IEnumerable<GridModel> ReadGridFromGeometry(GeometryObject geometryObject, string layerName)

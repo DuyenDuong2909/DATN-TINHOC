@@ -23,6 +23,7 @@ namespace AutoCADToRevitApplication.ViewModels
         private ElementId? _currentDwgInstanceId;
         private List<GridModel> _parsedGrids = new();
         private List<ColumnModel> _parsedColumns = new();
+        private List<BeamModel> _parsedBeams = new();
 
         public event Action? RequestClose;
 
@@ -44,6 +45,9 @@ namespace AutoCADToRevitApplication.ViewModels
         [ObservableProperty] private string _slabThickness = "130";
         [ObservableProperty] private string _beamWidth = "300";
         [ObservableProperty] private string _beamHeight = "700";
+        [ObservableProperty] private string _beamZOffset = "0";
+        [ObservableProperty] private ObservableCollection<string> _beamLevelNames = new();
+        [ObservableProperty] private string _selectedBeamLevelName = string.Empty;
         [ObservableProperty] private string _xStartName = "A";
         [ObservableProperty] private string _yStartName = "1";
         [ObservableProperty] private string _xNamingDirection = "Trái sang phải";
@@ -59,11 +63,40 @@ namespace AutoCADToRevitApplication.ViewModels
             _doc = _uiDoc?.Document;
 
             if (_doc != null)
+            {
+                LoadLevelOptions();
                 AutoDetectDwg();
+            }
+        }
+
+        private void LoadLevelOptions()
+        {
+            if (_doc == null) return;
+
+            BeamLevelNames.Clear();
+
+            var levels = new FilteredElementCollector(_doc)
+                .OfClass(typeof(Level))
+                .Cast<Level>()
+                .OrderBy(l => l.Elevation)
+                .ToList();
+
+            foreach (var level in levels)
+                BeamLevelNames.Add(level.Name);
+
+            SelectedBeamLevelName = levels.FirstOrDefault(l =>
+                    string.Equals(l.Name, "Level 1", StringComparison.OrdinalIgnoreCase))
+                ?.Name ?? levels.FirstOrDefault()?.Name ?? string.Empty;
         }
 
         private void AutoDetectDwg()
         {
+            if (CreateBeam && _parsedBeams.Count == 0)
+            {
+                SetStatus("Da tich ve dam nhung chua doc duoc du lieu dam tu CAD.", StatusType.Error);
+                return;
+            }
+
             try
             {
                 var reader = new RevitDwgReaderService(_doc!);
@@ -146,12 +179,14 @@ namespace AutoCADToRevitApplication.ViewModels
 
                 _parsedGrids = result.Grids;
                 _parsedColumns = result.Columns;
+                _parsedBeams = result.Beams;
 
                 foreach (var layer in result.Layers)
                     Layers.Add(layer);
 
                 UpdateCounts();
                 SetStatus($"Đã đọc DWG thành công! Lưới trục: {_parsedGrids.Count}, Cột: {_parsedColumns.Count}", StatusType.Success);
+                SetStatus($"Da doc CAD: Luoi truc {_parsedGrids.Count}, Cot {_parsedColumns.Count}, Dam {_parsedBeams.Count}.", StatusType.Success);
                 IsFileLoaded = true;
             }
             catch (Exception ex)
@@ -177,13 +212,13 @@ namespace AutoCADToRevitApplication.ViewModels
                 return;
             }
 
-            if (!CreateGrid && !CreateColumn)
+            if (!CreateGrid && !CreateColumn && !CreateBeam)
             {
                 SetStatus("Chưa chọn cấu kiện để vẽ. Vui lòng tích Lưới trục hoặc Cột.", StatusType.Error);
                 return;
             }
 
-            if ((CreateGrid || CreateColumn) && _parsedGrids.Count == 0)
+            if ((CreateGrid || CreateColumn || CreateBeam) && _parsedGrids.Count == 0)
             {
                 SetStatus("Chưa có dữ liệu lưới trục. Vui lòng đọc CAD trước.", StatusType.Error);
                 return;
@@ -203,6 +238,8 @@ namespace AutoCADToRevitApplication.ViewModels
                 var gridSkipped = 0;
                 var columnCreated = 0;
                 var columnSkipped = 0;
+                var beamCreated = 0;
+                var beamSkipped = 0;
 
                 if (CreateGrid)
                 {
@@ -239,6 +276,26 @@ namespace AutoCADToRevitApplication.ViewModels
                     }
                 }
 
+                if (CreateBeam)
+                {
+                    var beamService = new BeamCreationService(_doc);
+                    var beamResult = beamService.CreateBeams(
+                        _parsedBeams,
+                        _parsedGrids,
+                        SelectedBeamLevelName,
+                        ParseDouble(BeamZOffset, 0.0));
+
+                    beamCreated = beamResult.Created;
+                    beamSkipped = beamResult.Skipped;
+                    createdElementIds.AddRange(beamResult.CreatedElementIds);
+
+                    if (beamResult.Failed > 0)
+                    {
+                        SetStatus($"Da tao {gridCreated} luoi truc, {columnCreated} cot, {beamCreated} dam; loi dam {beamResult.Failed}.", StatusType.Error);
+                        return;
+                    }
+                }
+
                 if (createdElementIds.Count == 0)
                 {
                     SetStatus($"Không tạo thêm cấu kiện mới. Lưới bỏ qua: {gridSkipped}, cột bỏ qua: {columnSkipped}.", StatusType.Info);
@@ -249,6 +306,7 @@ namespace AutoCADToRevitApplication.ViewModels
                 gridService.HideDwgImportsInAllViews();
                 FocusCreatedElements(createdElementIds);
                 SetStatus($"Đã tạo {gridCreated} lưới trục và {columnCreated} cột trong Revit. Bỏ qua lưới: {gridSkipped}, cột: {columnSkipped}.", StatusType.Success);
+                SetStatus($"Da tao {gridCreated} luoi truc, {columnCreated} cot, {beamCreated} dam trong Revit. Bo qua luoi: {gridSkipped}, cot: {columnSkipped}, dam: {beamSkipped}.", StatusType.Success);
                 RequestClose?.Invoke();
             }
             catch (Exception ex)
@@ -280,6 +338,7 @@ namespace AutoCADToRevitApplication.ViewModels
             var layerList = layers.ToList();
             var gridLayerNames = layerList.Where(IsGridLayer).Select(l => l.LayerName).ToList();
             var columnLayerNames = layerList.Where(IsColumnLayer).Select(l => l.LayerName).ToList();
+            var beamLayerNames = layerList.Where(IsBeamLayerRobust).Select(l => l.LayerName).ToList();
 
             var grids = reader.ReadGridLines(
                 instance,
@@ -294,11 +353,18 @@ namespace AutoCADToRevitApplication.ViewModels
 
             var geometryByLayer = reader.GetGeometryByLayer(instance);
             var columns = new ColumnReaderService().ReadColumns(geometryByLayer, columnLayerNames);
+            var beams = new BeamReaderService().ReadBeams(
+                geometryByLayer,
+                beamLayerNames,
+                gridLayerNames,
+                ParsePositiveDouble(BeamWidth, 300.0),
+                ParsePositiveDouble(BeamHeight, 700.0));
 
             return new DwgReadResult
             {
                 Grids = grids,
-                Columns = columns
+                Columns = columns,
+                Beams = beams
             };
         }
 
@@ -313,6 +379,7 @@ namespace AutoCADToRevitApplication.ViewModels
             var result = ParseGeometryByLayer(reader, instance, Layers);
             _parsedGrids = result.Grids;
             _parsedColumns = result.Columns;
+            _parsedBeams = result.Beams;
         }
 
         private void FocusCreatedElements(ICollection<ElementId> createdElementIds)
@@ -347,7 +414,7 @@ namespace AutoCADToRevitApplication.ViewModels
             GridCount = _parsedGrids.Count;
             GridLayerCount = Layers.Count(IsGridLayer);
             ColumnCount = _parsedColumns.Count;
-            BeamCount = 0;
+            BeamCount = _parsedBeams.Count;
             SlabCount = 0;
         }
 
@@ -356,6 +423,7 @@ namespace AutoCADToRevitApplication.ViewModels
             GridCount = GridLayerCount = ColumnCount = BeamCount = SlabCount = 0;
             _parsedGrids.Clear();
             _parsedColumns.Clear();
+            _parsedBeams.Clear();
         }
 
         private Element? GetCurrentDwgInstance(RevitDwgReaderService reader)
@@ -377,6 +445,18 @@ namespace AutoCADToRevitApplication.ViewModels
 
         private static bool IsColumnLayer(DwgLayer layer)
             => string.Equals(layer.ElementType, "Cột", StringComparison.OrdinalIgnoreCase);
+
+        private static bool IsBeamLayer(DwgLayer layer)
+            => string.Equals(layer.ElementType, "Dầm", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(layer.ElementType, "Dáº§m", StringComparison.OrdinalIgnoreCase);
+
+        private static bool IsBeamLayerRobust(DwgLayer layer)
+        {
+            var elementType = layer.ElementType?.Trim() ?? string.Empty;
+            return elementType.StartsWith("D", StringComparison.OrdinalIgnoreCase) ||
+                   elementType.Contains("DAM", StringComparison.OrdinalIgnoreCase) ||
+                   elementType.Contains("BEAM", StringComparison.OrdinalIgnoreCase);
+        }
 
         private static double ParsePositiveDouble(string value, double fallback)
             => double.TryParse(value, out var parsed) && parsed > 0 ? parsed : fallback;
@@ -403,6 +483,7 @@ namespace AutoCADToRevitApplication.ViewModels
             public List<DwgLayer> Layers { get; set; } = new();
             public List<GridModel> Grids { get; set; } = new();
             public List<ColumnModel> Columns { get; set; } = new();
+            public List<BeamModel> Beams { get; set; } = new();
         }
     }
 }

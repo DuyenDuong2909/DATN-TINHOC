@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoCADToRevitApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa632f58eeb868df470303ccf4b33f2e9a5ccd23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13913192864eb296adb27d8079b6cb0a0209a379")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoCADToRevitApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoCADToRevitApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

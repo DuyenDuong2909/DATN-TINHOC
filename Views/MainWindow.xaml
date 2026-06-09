@@ -150,11 +150,21 @@
                             <Label Content="mm" Style="{StaticResource UnitLabel}"/>
                         </WrapPanel>
 
-                        <WrapPanel>
+                        <WrapPanel Margin="0,0,0,10">
                             <Label Content="Dam (rong x cao):" Style="{StaticResource FieldLabel}" Width="140"/>
                             <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamWidth}"/>
                             <Label Content="x" Style="{StaticResource UnitLabel}" Padding="4,0"/>
                             <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamHeight}"/>
+                            <Label Content="mm" Style="{StaticResource UnitLabel}"/>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label Content="Level dam:" Style="{StaticResource FieldLabel}" Width="140"/>
+                            <ComboBox Style="{StaticResource InputComboBox}"
+                                      ItemsSource="{Binding BeamLevelNames}"
+                                      SelectedItem="{Binding SelectedBeamLevelName}"/>
+                            <Label Content="Z Offset dam:" Style="{StaticResource FieldLabel}" Margin="24,0,0,0"/>
+                            <TextBox Style="{StaticResource InputTextBox}" Text="{Binding BeamZOffset}"/>
                             <Label Content="mm" Style="{StaticResource UnitLabel}"/>
                         </WrapPanel>
                     </StackPanel>

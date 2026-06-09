@@ -19,6 +19,9 @@ namespace AutoCADToRevitApplication.Services.Parsing
             new("COT", "Cột", 10),
             new("CỘT", "Cột", 10),
             new("COL", "Cột", 9),
+            new("BEAM", "Dầm", 10),
+            new("DAM", "Dầm", 10),
+            new("DẦM", "Dầm", 10),
         };
 
         public List<DwgLayer> AutoMap(List<DwgLayer> layers)
