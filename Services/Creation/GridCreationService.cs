@@ -39,7 +39,7 @@ namespace AutoCADToRevitApplication.Services.Creation
             var placement = GridPlacement.From(gridModels);
             var verticalExtents = GetVerticalExtents();
 
-            using var transaction = new Transaction(_doc, "Create grids from CAD");
+            using var transaction = new Transaction(_doc, "Tạo lưới trục từ file CAD");
             transaction.Start();
 
             foreach (var model in gridModels)
@@ -64,7 +64,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (existingGridKeys.Contains(gridKey) || createdGridKeys.Contains(gridKey))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua luoi truc '{model.Name}' vi trung toa do voi luoi truc khac.");
+                        result.Messages.Add($"Bỏ qua lưới trục '{model.Name}' vì trùng tọa độ với lưới trục khác.");
                         continue;
                     }
 
@@ -88,43 +88,6 @@ namespace AutoCADToRevitApplication.Services.Creation
 
             transaction.Commit();
             return result;
-        }
-
-        public int HideDwgImportsInAllViews()
-        {
-            var dwgIds = new FilteredElementCollector(_doc)
-                .OfClass(typeof(ImportInstance))
-                .WhereElementIsNotElementType()
-                .Select(e => e.Id)
-                .ToList();
-
-            if (dwgIds.Count == 0) return 0;
-
-            var views = new FilteredElementCollector(_doc)
-                .OfClass(typeof(View))
-                .Cast<View>()
-                .Where(v => !v.IsTemplate)
-                .ToList();
-
-            var hiddenCount = 0;
-            using var transaction = new Transaction(_doc, "Hide CAD import");
-            transaction.Start();
-
-            foreach (var view in views)
-            {
-                var idsToHide = dwgIds
-                    .Where(id => CanHide(view, id))
-                    .ToList();
-
-                if (idsToHide.Count == 0) continue;
-
-                view.HideElements(idsToHide);
-                hiddenCount += idsToHide.Count;
-            }
-
-            transaction.Commit();
-
-            return hiddenCount;
         }
 
         private Level? GetActiveLevel()

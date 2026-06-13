@@ -1,4 +1,4 @@
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using AutoCADToRevitApplication.Models.Elements;
 using AutoCADToRevitApplication.Models.Results;
@@ -21,34 +21,34 @@ namespace AutoCADToRevitApplication.Services.Creation
         public BeamCreationResult CreateBeams(
             IReadOnlyCollection<BeamModel> beamModels,
             IReadOnlyCollection<GridModel> gridModels,
-            string beamLevelName,
-            double zOffsetMm)
+            Level? level,
+            double zOffsetMm,
+            bool deleteExistingGenerated)
         {
             var result = new BeamCreationResult();
 
             if (beamModels.Count == 0)
             {
-                result.Messages.Add("Chua co du lieu dam de ve.");
+                result.Messages.Add("Chưa có dữ liệu dầm để vẽ");
                 return result;
             }
 
             if (gridModels.Count == 0)
             {
-                result.Messages.Add("Can co du lieu luoi truc de dat dam dung toa do CAD.");
+                result.Messages.Add("Cần có lưới trục");
                 return result;
             }
 
-            var level = GetBeamLevel(beamLevelName);
             if (level == null)
             {
-                result.Messages.Add("Khong xac dinh duoc Level dat dam.");
+                result.Messages.Add("Không xác định được level đặt dầm");
                 return result;
             }
 
             var baseSymbol = FindBaseBeamSymbol();
             if (baseSymbol == null)
             {
-                result.Messages.Add($"Khong tim thay family dam '{DefaultBeamFamilyName}'. Vui long load family nay truoc khi ve dam.");
+                result.Messages.Add($"Không tìm thầy Family dầm '{DefaultBeamFamilyName}'. Vui lòng load Family trước");
                 return result;
             }
 
@@ -58,10 +58,11 @@ namespace AutoCADToRevitApplication.Services.Creation
             var zOffset = MmToFeet(zOffsetMm);
             var elevation = level.Elevation;
 
-            using var transaction = new Transaction(_doc, "Create beams from CAD");
+            using var transaction = new Transaction(_doc, "Tạo dầm từ file CAD");
             transaction.Start();
 
-            DeleteGeneratedBeams();
+            if (deleteExistingGenerated)
+                DeleteGeneratedBeams();
 
             foreach (var beamModel in beamModels)
             {
@@ -70,7 +71,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (beamModel.Length < MinBeamLengthMm)
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua dam qua ngan tai {beamModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua dầm tại {beamModel.CenterPoint}.");
                         continue;
                     }
 
@@ -78,7 +79,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (symbol == null)
                     {
                         result.Failed++;
-                        result.Messages.Add($"Khong tao duoc type dam {beamModel.Width:F0}x{beamModel.Height:F0}.");
+                        result.Messages.Add($"Không tạo được Type dầm {beamModel.Width:F0}x{beamModel.Height:F0}.");
                         continue;
                     }
 
@@ -95,7 +96,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (existingKeys.Contains(key) || createdKeys.Contains(key))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua dam trung tai {beamModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua dầm trùng tại {beamModel.CenterPoint}.");
                         continue;
                     }
 
@@ -111,38 +112,13 @@ namespace AutoCADToRevitApplication.Services.Creation
                 catch (Exception ex)
                 {
                     result.Failed++;
-                    result.Messages.Add($"Khong tao duoc dam {beamModel.Width:F0}x{beamModel.Height:F0}: {ex.Message}");
+                    result.Messages.Add($"Không tạo được dầmm {beamModel.Width:F0}x{beamModel.Height:F0}: {ex.Message}");
                 }
             }
 
             transaction.Commit();
             return result;
         }
-
-        private Level? GetBeamLevel(string beamLevelName)
-        {
-            var levels = new FilteredElementCollector(_doc)
-                .OfClass(typeof(Level))
-                .Cast<Level>()
-                .ToList();
-
-            var selected = levels.FirstOrDefault(l =>
-                string.Equals(l.Name, beamLevelName, StringComparison.OrdinalIgnoreCase));
-
-            if (selected != null)
-                return selected;
-
-            var levelOne = levels.FirstOrDefault(l =>
-                string.Equals(l.Name, "Level 1", StringComparison.OrdinalIgnoreCase));
-
-            if (levelOne != null)
-                return levelOne;
-
-            return levels
-                .OrderBy(l => Math.Abs(l.Elevation))
-                .FirstOrDefault();
-        }
-
         private FamilySymbol? FindBaseBeamSymbol()
         {
             return new FilteredElementCollector(_doc)

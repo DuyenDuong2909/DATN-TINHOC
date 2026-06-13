@@ -1,0 +1,98 @@
+<svg width="980" height="1580" viewBox="0 0 980 1580" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Lưu đồ thuật toán phát triển cấu kiện lên các tầng</title>
+  <desc>Luồng vẽ lưới trục, cột, dầm và sàn theo số tầng, level và offset người dùng nhập.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#444"/>
+    </marker>
+    <style>
+      .line { stroke:#555; stroke-width:2; fill:none; marker-end:url(#arrow); }
+      .shape { fill:#fff; stroke:#555; stroke-width:2; }
+      .text { font-family:Arial, 'Segoe UI', sans-serif; font-size:16px; font-weight:700; fill:#555; text-anchor:middle; dominant-baseline:middle; }
+      .small { font-family:Arial, 'Segoe UI', sans-serif; font-size:14px; font-weight:700; fill:#555; text-anchor:middle; dominant-baseline:middle; }
+      .label { font-family:Arial, 'Segoe UI', sans-serif; font-size:13px; font-weight:700; fill:#555; text-anchor:middle; }
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="972" height="1572" fill="#fff" stroke="#e5e5e5"/>
+
+  <ellipse cx="490" cy="45" rx="90" ry="30" class="shape"/>
+  <text x="490" y="45" class="text">BẮT ĐẦU</text>
+  <path d="M490 75 L490 105" class="line"/>
+
+  <rect x="325" y="105" width="330" height="72" rx="8" class="shape"/>
+  <text x="490" y="132" class="text">LẤY DỮ LIỆU CAD ĐÃ ĐỌC</text>
+  <text x="490" y="154" class="small">LƯỚI TRỤC, CỘT, DẦM, SÀN</text>
+  <path d="M490 177 L490 215" class="line"/>
+
+  <path d="M330 215 L690 215 L650 295 L290 295 Z" class="shape"/>
+  <text x="490" y="242" class="text">NHẬP THÔNG TIN TRÊN FORM</text>
+  <text x="490" y="266" class="small">SỐ TẦNG, CHIỀU CAO, OFFSET, LEVEL BẮT ĐẦU</text>
+  <path d="M490 295 L490 335" class="line"/>
+
+  <polygon points="490,335 675,410 490,485 305,410" class="shape"/>
+  <text x="490" y="395" class="text">KIỂM TRA DỮ LIỆU</text>
+  <text x="490" y="419" class="small">ĐẦU VÀO HỢP LỆ?</text>
+
+  <path d="M305 410 L175 410" class="line"/>
+  <text x="235" y="398" class="label">SAI</text>
+  <path d="M490 485 L490 530" class="line"/>
+  <text x="520" y="508" class="label">ĐÚNG</text>
+
+  <path d="M65 370 L175 370 L175 450 L65 450 Q50 430 65 410 Q80 390 65 370 Z" class="shape"/>
+  <text x="120" y="405" class="text">THÔNG BÁO LỖI</text>
+  <path d="M120 450 L120 1460 L395 1460" class="line"/>
+
+  <rect x="290" y="530" width="400" height="74" rx="8" class="shape"/>
+  <text x="490" y="557" class="text">TẠO / CẬP NHẬT DANH SÁCH LEVEL</text>
+  <text x="490" y="581" class="small">THEO SỐ TẦNG VÀ CHIỀU CAO ĐÃ NHẬP</text>
+  <path d="M490 604 L490 645" class="line"/>
+
+  <polygon points="490,645 650,710 490,775 330,710" class="shape"/>
+  <text x="490" y="700" class="text">CÓ TÍCH</text>
+  <text x="490" y="724" class="small">VẼ LƯỚI TRỤC?</text>
+
+  <path d="M650 710 L760 710 L760 825 L610 825" class="line"/>
+  <text x="705" y="698" class="label">KHÔNG</text>
+  <path d="M490 775 L490 825" class="line"/>
+  <text x="520" y="800" class="label">CÓ</text>
+
+  <rect x="340" y="825" width="300" height="70" rx="8" class="shape"/>
+  <text x="490" y="848" class="text">VẼ LƯỚI TRỤC 1 LẦN</text>
+  <text x="490" y="872" class="small">GRID THEO TỌA ĐỘ CAD</text>
+  <path d="M490 895 L490 940" class="line"/>
+
+  <rect x="325" y="940" width="330" height="62" rx="8" class="shape"/>
+  <text x="490" y="971" class="text">ĐẶT i = 0 CHO VÒNG LẶP CỘT</text>
+  <path d="M490 1002 L490 1042" class="line"/>
+
+  <polygon points="490,1042 635,1102 490,1162 345,1102" class="shape"/>
+  <text x="490" y="1092" class="text">i &lt; SỐ TẦNG?</text>
+  <text x="490" y="1116" class="small">LEVEL i ĐẾN LEVEL i+1</text>
+
+  <path d="M345 1102 L235 1102 L235 1235 L340 1235" class="line"/>
+  <text x="285" y="1090" class="label">KHÔNG</text>
+  <path d="M490 1162 L490 1205" class="line"/>
+  <text x="520" y="1185" class="label">CÓ</text>
+
+  <rect x="330" y="1205" width="320" height="72" rx="8" class="shape"/>
+  <text x="490" y="1230" class="text">NẾU TÍCH CỘT: VẼ CỘT</text>
+  <text x="490" y="1254" class="small">BASE LEVEL = LEVEL i, TOP LEVEL = LEVEL i+1</text>
+  <path d="M650 1241 L745 1241 L745 1102 L635 1102" class="line"/>
+  <text x="695" y="1228" class="label">i = i + 1</text>
+
+  <rect x="250" y="1295" width="480" height="82" rx="8" class="shape"/>
+  <text x="490" y="1322" class="text">XÁC ĐỊNH LEVEL BẮT ĐẦU DẦM / SÀN</text>
+  <text x="490" y="1346" class="small">LẤY TỪ COMBOBOX LEVEL DẦM/SÀN TRÊN GIAO DIỆN</text>
+  <path d="M490 1277 L490 1295" class="line"/>
+  <path d="M490 1377 L490 1415" class="line"/>
+
+  <rect x="235" y="1415" width="510" height="90" rx="8" class="shape"/>
+  <text x="490" y="1442" class="text">LẶP QUA CÁC LEVEL TỪ LEVEL BẮT ĐẦU</text>
+  <text x="490" y="1466" class="small">NẾU TÍCH DẦM: VẼ DẦM THEO Z OFFSET</text>
+  <text x="490" y="1488" class="small">NẾU TÍCH SÀN: VẼ SÀN THEO Z OFFSET</text>
+  <path d="M490 1505 L490 1530" class="line"/>
+
+  <ellipse cx="490" cy="1530" rx="95" ry="30" class="shape"/>
+  <text x="490" y="1530" class="text">KẾT THÚC</text>
+</svg>

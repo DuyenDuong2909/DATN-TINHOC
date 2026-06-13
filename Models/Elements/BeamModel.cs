@@ -1,9 +1,5 @@
 namespace AutoCADToRevitApplication.Models.Elements
 {
-    /// <summary>
-    /// Represents one beam axis read from CAD geometry.
-    /// All dimensions and coordinates are in millimeters.
-    /// </summary>
     public class BeamModel
     {
         public string LayerName { get; set; } = string.Empty;

@@ -8,19 +8,17 @@ namespace AutoCADToRevitApplication.Services.Parsing
     public class BeamReaderService
     {
         private const double MinBeamLengthMm = 300.0;
-        private const double MaxBeamWidthMm = 2000.0;
-        private const double MinBeamWidthMm = 100.0;
+        private const double MinBoundaryDistanceMm = 100.0;
+        private const double MaxBoundaryDistanceMm = 2000.0;
         private const double AxisToleranceDegrees = 10.0;
         private const double DuplicateToleranceMm = 20.0;
-        private const double TextSearchMaxDistanceMm = 2500.0;
         private const double BeamWidthToleranceMm = 10.0;
 
         public List<BeamModel> ReadBeams(
             Dictionary<string, List<GeometryObject>> geometryByLayer,
             IEnumerable<string> beamLayerNames,
             IEnumerable<string> axisLayerNames,
-            double defaultWidth,
-            double defaultHeight)
+            double inputBeamHeight)
         {
             var layerSet = new HashSet<string>(beamLayerNames, StringComparer.OrdinalIgnoreCase);
             if (layerSet.Count == 0) return new List<BeamModel>();
@@ -44,8 +42,7 @@ namespace AutoCADToRevitApplication.Services.Parsing
             var candidates = DetectBeamsFromBoundariesAndAxes(
                     beamSegments,
                     axisSegments,
-                    defaultWidth,
-                    defaultHeight)
+                    inputBeamHeight)
                 .ToList();
 
             return Deduplicate(candidates);
@@ -54,8 +51,7 @@ namespace AutoCADToRevitApplication.Services.Parsing
         private static IEnumerable<BeamModel> DetectBeamsFromBoundariesAndAxes(
             List<BeamSegment> boundarySegments,
             List<BeamSegment> axisSegments,
-            double beamWidth,
-            double beamHeight)
+            double inputBeamHeight)
         {
             if (axisSegments.Count == 0)
                 yield break;
@@ -70,15 +66,21 @@ namespace AutoCADToRevitApplication.Services.Parsing
                     if (!AreParallel(first.AngleDegrees, second.AngleDegrees))
                         continue;
 
-                    if (!TryGetParallelDistance(first, second, out var distance) ||
-                        Math.Abs(distance - beamWidth) > BeamWidthToleranceMm)
+                    if (!TryGetParallelDistance(first, second, out var boundaryDistance) ||
+                        boundaryDistance < MinBoundaryDistanceMm ||
+                        boundaryDistance > MaxBoundaryDistanceMm)
                         continue;
 
                     if (!HasEnoughOverlap(first, second))
                         continue;
 
                     var centerLine = CreateCenterLine(first, second);
-                    var axis = FindBestMiddleAxis(centerLine, first, second, axisSegments, beamWidth);
+                    var axis = FindBestMiddleAxis(
+                        centerLine,
+                        first,
+                        second,
+                        axisSegments,
+                        boundaryDistance);
                     if (axis == null)
                         continue;
 
@@ -89,8 +91,8 @@ namespace AutoCADToRevitApplication.Services.Parsing
                         EndPoint = centerLine.End,
                         CenterPoint = centerLine.Center,
                         RotationDegrees = centerLine.AngleDegrees,
-                        Width = beamWidth,
-                        Height = beamHeight,
+                        Width = boundaryDistance,
+                        Height = inputBeamHeight,
                         SourceType = "BoundaryPairWithAxis"
                     };
                 }
@@ -102,7 +104,7 @@ namespace AutoCADToRevitApplication.Services.Parsing
             BeamSegment firstBoundary,
             BeamSegment secondBoundary,
             List<BeamSegment> axisSegments,
-            double beamWidth)
+            double boundaryDistance)
         {
             return axisSegments
                 .Where(axis => AreParallel(axis.AngleDegrees, centerLine.AngleDegrees))
@@ -115,8 +117,8 @@ namespace AutoCADToRevitApplication.Services.Parsing
                     Overlap = GetOverlapLength(axis, centerLine)
                 })
                 .Where(x => x.Overlap >= Math.Min(x.Axis.Length, centerLine.Length) * 0.3)
-                .Where(x => Math.Abs(x.FirstDistance - beamWidth / 2.0) <= BeamWidthToleranceMm)
-                .Where(x => Math.Abs(x.SecondDistance - beamWidth / 2.0) <= BeamWidthToleranceMm)
+                .Where(x => Math.Abs(x.FirstDistance - boundaryDistance / 2.0) <= BeamWidthToleranceMm)
+                .Where(x => Math.Abs(x.SecondDistance - boundaryDistance / 2.0) <= BeamWidthToleranceMm)
                 .Where(x => x.CenterDistance <= BeamWidthToleranceMm)
                 .OrderBy(x => x.CenterDistance)
                 .ThenBy(x => Math.Abs(x.FirstDistance - x.SecondDistance))
@@ -160,38 +162,6 @@ namespace AutoCADToRevitApplication.Services.Parsing
             return new BeamSegment(layerName, startPoint, endPoint);
         }
 
-        private static List<BeamSegment> DetectCenterLinesFromBoundaryPairs(List<BeamSegment> segments)
-        {
-            var result = new List<BeamSegment>();
-
-            for (int i = 0; i < segments.Count; i++)
-            {
-                for (int j = i + 1; j < segments.Count; j++)
-                {
-                    var first = segments[i];
-                    var second = segments[j];
-
-                    if (!string.Equals(first.LayerName, second.LayerName, StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    if (!AreParallel(first.AngleDegrees, second.AngleDegrees))
-                        continue;
-
-                    if (!TryGetParallelDistance(first, second, out var distance) ||
-                        distance < MinBeamWidthMm ||
-                        distance > MaxBeamWidthMm)
-                        continue;
-
-                    if (!HasEnoughOverlap(first, second))
-                        continue;
-
-                    result.Add(CreateCenterLine(first, second));
-                }
-            }
-
-            return result;
-        }
-
         private static BeamSegment CreateCenterLine(BeamSegment first, BeamSegment second)
         {
             var firstOrdered = OrderAlongMainAxis(first);
@@ -206,134 +176,6 @@ namespace AutoCADToRevitApplication.Services.Parsing
                 (firstOrdered.End.Y + secondOrdered.End.Y) / 2.0);
 
             return new BeamSegment(first.LayerName, start, end);
-        }
-
-        private static BeamModel CreateBeam(
-            BeamSegment segment,
-            double defaultWidth,
-            double defaultHeight,
-            string sourceType)
-        {
-            return new BeamModel
-            {
-                LayerName = segment.LayerName,
-                StartPoint = segment.Start,
-                EndPoint = segment.End,
-                CenterPoint = segment.Center,
-                RotationDegrees = segment.AngleDegrees,
-                Width = defaultWidth,
-                Height = defaultHeight,
-                SourceType = sourceType
-            };
-        }
-
-        private static List<BeamDimensionNote> ReadDimensionNotes(
-            Dictionary<string, List<GeometryObject>> geometryByLayer)
-        {
-            var notes = new List<BeamDimensionNote>();
-
-            foreach (var (_, geometryObjects) in geometryByLayer)
-            {
-                foreach (var geometryObject in geometryObjects)
-                {
-                    var text = TryGetText(geometryObject);
-                    if (string.IsNullOrWhiteSpace(text)) continue;
-
-                    if (!TryParseDimension(text, out var width, out var height)) continue;
-
-                    var center = TryGetGeometryCenter(geometryObject);
-                    if (center == null) continue;
-
-                    notes.Add(new BeamDimensionNote(text.Trim(), center, width, height));
-                }
-            }
-
-            return notes;
-        }
-
-        private static List<BeamModel> CreateBeamsFromDimensionNotes(
-            List<BeamModel> candidates,
-            List<BeamDimensionNote> notes)
-        {
-            var result = new List<BeamModel>();
-
-            foreach (var note in notes)
-            {
-                var nearest = candidates
-                    .Select(beam => new
-                    {
-                        Beam = beam,
-                        Distance = DistancePointToSegment(note.Location, beam.StartPoint, beam.EndPoint),
-                        MiddleDistance = Distance(note.Location, beam.CenterPoint)
-                    })
-                    .Where(x => x.Distance <= TextSearchMaxDistanceMm)
-                    .OrderBy(x => x.Distance)
-                    .ThenBy(x => x.MiddleDistance)
-                    .FirstOrDefault();
-
-                if (nearest == null) continue;
-
-                result.Add(new BeamModel
-                {
-                    LayerName = nearest.Beam.LayerName,
-                    StartPoint = nearest.Beam.StartPoint,
-                    EndPoint = nearest.Beam.EndPoint,
-                    CenterPoint = nearest.Beam.CenterPoint,
-                    RotationDegrees = nearest.Beam.RotationDegrees,
-                    SourceType = nearest.Beam.SourceType,
-                    Width = note.Width,
-                    Height = note.Height,
-                    DimensionText = note.Text
-                });
-            }
-
-            return result;
-        }
-
-        private static bool TryParseDimension(string text, out double width, out double height)
-        {
-            width = height = 0;
-
-            var normalized = text
-                .Replace(" ", string.Empty)
-                .Replace("X", "x")
-                .Replace("*", "x");
-
-            var match = Regex.Match(
-                normalized,
-                @"(?:B|b)?(?<b>\d+(?:[.,]\d+)?)(?:x|X)(?:H|h)?(?<h>\d+(?:[.,]\d+)?)");
-
-            if (!match.Success) return false;
-
-            width = ParseNumber(match.Groups["b"].Value);
-            height = ParseNumber(match.Groups["h"].Value);
-            return width > 0 && height > 0;
-        }
-
-        private static double ParseNumber(string value)
-            => double.Parse(value.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
-
-        private static string? TryGetText(GeometryObject geometryObject)
-        {
-            var type = geometryObject.GetType();
-            foreach (var propertyName in new[] { "Text", "TextString", "Contents", "Value" })
-            {
-                var property = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-                if (property?.PropertyType != typeof(string)) continue;
-
-                return property.GetValue(geometryObject) as string;
-            }
-
-            return null;
-        }
-
-        private static Point2D? TryGetGeometryCenter(GeometryObject geometryObject)
-        {
-            var method = geometryObject.GetType().GetMethod("GetBoundingBox", Type.EmptyTypes);
-            if (method?.Invoke(geometryObject, null) is not BoundingBoxXYZ box)
-                return null;
-
-            return ToPoint2D((box.Min + box.Max) / 2.0);
         }
 
         private static List<BeamModel> Deduplicate(List<BeamModel> beams)
@@ -450,21 +292,6 @@ namespace AutoCADToRevitApplication.Services.Parsing
             angle %= 180.0;
             if (angle < 0) angle += 180.0;
             return angle;
-        }
-
-        private static double DistancePointToSegment(Point2D point, Point2D start, Point2D end)
-        {
-            var dx = end.X - start.X;
-            var dy = end.Y - start.Y;
-            var lengthSquared = dx * dx + dy * dy;
-
-            if (lengthSquared <= 0) return Distance(point, start);
-
-            var t = ((point.X - start.X) * dx + (point.Y - start.Y) * dy) / lengthSquared;
-            t = Math.Max(0, Math.Min(1, t));
-
-            var projection = new Point2D(start.X + t * dx, start.Y + t * dy);
-            return Distance(point, projection);
         }
 
         private static Point2D ToPoint2D(XYZ point)

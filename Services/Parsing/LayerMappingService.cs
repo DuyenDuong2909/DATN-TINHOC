@@ -19,9 +19,15 @@ namespace AutoCADToRevitApplication.Services.Parsing
             new("COT", "Cột", 10),
             new("CỘT", "Cột", 10),
             new("COL", "Cột", 9),
+
             new("BEAM", "Dầm", 10),
             new("DAM", "Dầm", 10),
             new("DẦM", "Dầm", 10),
+
+            new("SLAB", "Sàn", 10),
+            new("SAN", "Sàn", 10),
+            new("SÀN", "Sàn", 10),
+            new("FLOOR", "Sàn", 9),
         };
 
         public List<DwgLayer> AutoMap(List<DwgLayer> layers)
@@ -46,13 +52,33 @@ namespace AutoCADToRevitApplication.Services.Parsing
 
         private static LayerMappingRule? FindBestMatch(string layerName)
         {
-            var upper = layerName.ToUpperInvariant();
+            var normalizedLayerName = NormalizeText(layerName);
 
             return DefaultRules
-                .Where(r => upper.Contains(r.Keyword.ToUpperInvariant()))
+                .Where(r => normalizedLayerName.Contains(NormalizeText(r.Keyword)))
                 .OrderByDescending(r => r.Priority)
                 .ThenByDescending(r => r.Keyword.Length)
                 .FirstOrDefault();
+        }
+
+        private static string NormalizeText(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            var normalized = value.Trim().Normalize(System.Text.NormalizationForm.FormD);
+            var builder = new System.Text.StringBuilder(normalized.Length);
+
+            foreach (var ch in normalized)
+            {
+                if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(ch) != System.Globalization.UnicodeCategory.NonSpacingMark)
+                    builder.Append(ch);
+            }
+
+            return builder
+                .ToString()
+                .Normalize(System.Text.NormalizationForm.FormC)
+                .ToUpperInvariant();
         }
 
         public static List<LayerMappingRule> GetDefaultRules() => DefaultRules;

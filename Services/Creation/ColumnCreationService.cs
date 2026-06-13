@@ -1,4 +1,4 @@
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using AutoCADToRevitApplication.Models.Elements;
 using AutoCADToRevitApplication.Models.Results;
@@ -23,35 +23,37 @@ namespace AutoCADToRevitApplication.Services.Creation
         public ColumnCreationResult CreateColumns(
             IReadOnlyCollection<ColumnModel> columnModels,
             IReadOnlyCollection<GridModel> gridModels,
+            Level? baseLevel,
+            Level? topLevel,
             double fallbackStoryHeightMm,
             double baseOffsetMm,
-            double topOffsetMm)
+            double topOffsetMm,
+            bool deleteExistingGenerated)
         {
             var result = new ColumnCreationResult();
 
             if (columnModels.Count == 0)
             {
-                result.Messages.Add("Chua co du lieu cot de ve.");
+                result.Messages.Add("Chưa có dữ liệu cột để vẽ");
                 return result;
             }
 
             if (gridModels.Count == 0)
             {
-                result.Messages.Add("Can co du lieu luoi truc de dat cot dung toa do CAD.");
+                result.Messages.Add("Cần có dữ liệu lưới trục");
                 return result;
             }
 
-            var baseLevel = GetBaseLevel();
             if (baseLevel == null)
             {
-                result.Messages.Add("Khong xac dinh duoc Level dat cot.");
+                result.Messages.Add("Không xác định được Level đặt cột");
                 return result;
             }
 
             var baseSymbol = FindBaseColumnSymbol();
             if (baseSymbol == null)
             {
-                result.Messages.Add($"Khong tim thay family cot '{DefaultColumnFamilyName}'. Vui long load/chon family nay truoc khi ve cot.");
+                result.Messages.Add($"Không tìm thấy family cột '{DefaultColumnFamilyName}'. Vui lòng chọn Family trước");
                 return result;
             }
 
@@ -59,10 +61,12 @@ namespace AutoCADToRevitApplication.Services.Creation
             var createdKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var fallbackHeight = fallbackStoryHeightMm > 0 ? fallbackStoryHeightMm : DefaultStoryHeightMm;
 
-            using var transaction = new Transaction(_doc, "Create columns from CAD");
+            using var transaction = new Transaction(_doc, "Tạo cột từ file CAD");
             transaction.Start();
 
-            DeleteGeneratedColumns();
+            if (deleteExistingGenerated)
+                DeleteGeneratedColumns();
+
             var existingKeys = GetExistingColumnKeys();
 
             foreach (var columnModel in columnModels)
@@ -72,15 +76,15 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (!placement.TryResolveColumnPoint(columnModel.CenterPoint, out var resolvedPoint))
                     {
                         result.Failed++;
-                        result.Messages.Add($"Cot tai {columnModel.CenterPoint} khong nam dung tren giao diem luoi truc.");
+                        result.Messages.Add($"Cột tại {columnModel.CenterPoint} không nằm trên giao điểm lưới trục");
                         continue;
                     }
 
-                    var key = GetColumnKey(resolvedPoint, placement);
+                    var key = GetColumnKey(resolvedPoint, placement, baseLevel);
                     if (existingKeys.Contains(key) || createdKeys.Contains(key))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua cot tai {resolvedPoint} vi trung toa do.");
+                        result.Messages.Add($"Bỏ qua cột tại {resolvedPoint} vì trùng tọa độ");
                         continue;
                     }
 
@@ -88,7 +92,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (symbol == null)
                     {
                         result.Failed++;
-                        result.Messages.Add($"Khong tao duoc type cot {columnModel.Width:F0}x{columnModel.Height:F0}.");
+                        result.Messages.Add($"Không tạo được Type cột {columnModel.Width:F0}x{columnModel.Height:F0}.");
                         continue;
                     }
 
@@ -105,7 +109,7 @@ namespace AutoCADToRevitApplication.Services.Creation
 
                     var instance = _doc.Create.NewFamilyInstance(location, symbol, baseLevel, StructuralType.Column);
                     MarkGeneratedColumn(instance);
-                    SetColumnHeight(instance, baseLevel, fallbackHeight, baseOffsetMm, topOffsetMm);
+                    SetColumnHeight(instance, baseLevel, topLevel, fallbackHeight, baseOffsetMm, topOffsetMm);
                     RotateColumn(instance.Id, location, columnModel.RotationDegrees);
 
                     createdKeys.Add(key);
@@ -121,24 +125,6 @@ namespace AutoCADToRevitApplication.Services.Creation
 
             transaction.Commit();
             return result;
-        }
-
-        private Level? GetBaseLevel()
-        {
-            var levels = new FilteredElementCollector(_doc)
-                .OfClass(typeof(Level))
-                .Cast<Level>()
-                .ToList();
-
-            var levelOne = levels.FirstOrDefault(l =>
-                string.Equals(l.Name, "Level 1", StringComparison.OrdinalIgnoreCase));
-
-            if (levelOne != null)
-                return levelOne;
-
-            return levels
-                .OrderBy(l => Math.Abs(l.Elevation))
-                .FirstOrDefault();
         }
 
         private Level? GetNextLevel(Level baseLevel)
@@ -213,11 +199,12 @@ namespace AutoCADToRevitApplication.Services.Creation
         private void SetColumnHeight(
             FamilyInstance instance,
             Level baseLevel,
+            Level? topLevel,
             double fallbackStoryHeightMm,
             double baseOffsetMm,
             double topOffsetMm)
         {
-            var nextLevel = GetNextLevel(baseLevel);
+            var nextLevel = topLevel ?? GetNextLevel(baseLevel);
             TrySetElementIdParameter(instance, BuiltInParameter.FAMILY_BASE_LEVEL_PARAM, baseLevel.Id);
             TrySetDoubleParameter(instance, BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM, MmToFeet(baseOffsetMm));
 
@@ -289,20 +276,21 @@ namespace AutoCADToRevitApplication.Services.Creation
                 .Cast<FamilyInstance>()
                 .Select(i => i.Location as LocationPoint)
                 .Where(lp => lp != null)
-                .Select(lp => GetPointKey(FeetToMm(lp!.Point.X), FeetToMm(lp.Point.Y)))
+                .Select(lp => GetPointKey(FeetToMm(lp!.Point.X), FeetToMm(lp.Point.Y), FeetToMm(lp.Point.Z)))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
         }
 
-        private static string GetColumnKey(Point2D point, ColumnPlacement placement)
+        private static string GetColumnKey(Point2D point, ColumnPlacement placement, Level baseLevel)
         {
             return GetPointKey(
                 point.X - placement.CenterX,
-                point.Y - placement.CenterY);
+                point.Y - placement.CenterY,
+                FeetToMm(baseLevel.Elevation));
         }
 
-        private static string GetPointKey(double xMm, double yMm)
+        private static string GetPointKey(double xMm, double yMm, double zMm)
         {
-            return $"{RoundToTolerance(xMm)}:{RoundToTolerance(yMm)}";
+            return $"{RoundToTolerance(xMm)}:{RoundToTolerance(yMm)}:{RoundToTolerance(zMm)}";
         }
 
         private static bool TrySetElementIdParameter(Element element, BuiltInParameter builtInParameter, ElementId value)

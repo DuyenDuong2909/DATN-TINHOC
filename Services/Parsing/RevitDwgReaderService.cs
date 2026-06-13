@@ -31,25 +31,6 @@ namespace AutoCADToRevitApplication.Services.Parsing
                 .FirstOrDefault();
         }
 
-        public List<(string Name, Element Instance)> GetAllDwgInstances()
-        {
-            var result = new List<(string, Element)>();
-
-            var imports = new FilteredElementCollector(_doc)
-                .OfClass(typeof(ImportInstance))
-                .Cast<ImportInstance>()
-                .Select(i => (i.Category?.Name ?? "DWG Import", (Element)i));
-
-            var links = new FilteredElementCollector(_doc)
-                .OfClass(typeof(RevitLinkInstance))
-                .Cast<RevitLinkInstance>()
-                .Select(l => (l.Name ?? "DWG Link", (Element)l));
-
-            result.AddRange(imports);
-            result.AddRange(links);
-            return result;
-        }
-
         public List<DwgLayer> GetLayersFromInstance(Element dwgInstance)
         {
             var geometryByLayer = GetGeometryByLayer(dwgInstance);

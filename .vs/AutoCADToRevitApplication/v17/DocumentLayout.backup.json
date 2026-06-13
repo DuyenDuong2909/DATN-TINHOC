@@ -3,87 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\revitdwgreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\revitdwgreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\creation\\gridcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\creation\\gridcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\layermappingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\layermappingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\columnreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\columnreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\beamreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\beamreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\elements\\beammodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\elements\\beammodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\results\\slabcreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\results\\slabcreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\images\\cad2revit.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:images\\cad2revit.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\elements\\slabmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\elements\\slabmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\mapping\\layermappingrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\mapping\\layermappingrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\revitdwgreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\revitdwgreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\slabreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\slabreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\autocadtorevitapplication.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:autocadtorevitapplication.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\columnreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\columnreaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\creation\\gridcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\creation\\gridcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\creation\\levelcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\creation\\levelcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\elements\\gridmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\elements\\gridmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\creation\\beamcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\creation\\beamcreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\parsing\\layermappingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\parsing\\layermappingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\mapping\\revitcreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\mapping\\revitcreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\services\\creation\\columncreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:services\\creation\\columncreationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\mapping\\dwglayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\mapping\\dwglayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\GridParser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\Parsing\\GridParser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|c:\\users\\thinkpad p14s\\downloads\\datn-tinhoc\\autocadtorevitapplication\\models\\results\\columncreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCD65F58-2221-4F8F-9ED4-BCE996BD1C8E}|AutoCADToRevitApplication.csproj|solutionrelative:models\\results\\columncreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -97,255 +70,184 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "ViewModels\\MainViewModel.cs",
+              "DocumentIndex": 2,
+              "Title": "SlabCreationResult.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Results\\SlabCreationResult.cs",
+              "RelativeDocumentMoniker": "Models\\Results\\SlabCreationResult.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Results\\SlabCreationResult.cs",
+              "RelativeToolTip": "Models\\Results\\SlabCreationResult.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T06:28:12.659Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Views\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T02:42:35.311Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RevitDwgReaderService.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\RevitDwgReaderService.cs",
-              "RelativeDocumentMoniker": "Services\\Parsing\\RevitDwgReaderService.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\RevitDwgReaderService.cs",
-              "RelativeToolTip": "Services\\Parsing\\RevitDwgReaderService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T08:27:58.603Z",
+              "WhenOpened": "2026-06-13T17:13:53.683Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GridCreationService.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\GridCreationService.cs",
-              "RelativeDocumentMoniker": "Services\\Creation\\GridCreationService.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\GridCreationService.cs",
-              "RelativeToolTip": "Services\\Creation\\GridCreationService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwBYAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T13:35:28.346Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ColumnReaderService.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\ColumnReaderService.cs",
-              "RelativeDocumentMoniker": "Services\\Parsing\\ColumnReaderService.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\ColumnReaderService.cs",
-              "RelativeToolTip": "Services\\Parsing\\ColumnReaderService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T06:23:59.189Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "BeamReaderService.cs",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\BeamReaderService.cs",
               "RelativeDocumentMoniker": "Services\\Parsing\\BeamReaderService.cs",
               "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\BeamReaderService.cs",
               "RelativeToolTip": "Services\\Parsing\\BeamReaderService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOUAAAAAZPkCku4YwPIAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T06:23:52.869Z"
+              "WhenOpened": "2026-06-13T02:59:55.054Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BeamModel.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\BeamModel.cs",
-              "RelativeDocumentMoniker": "Models\\Elements\\BeamModel.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\BeamModel.cs",
-              "RelativeToolTip": "Models\\Elements\\BeamModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T06:23:36.93Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "LayerMappingRule.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\LayerMappingRule.cs",
-              "RelativeDocumentMoniker": "Models\\Mapping\\LayerMappingRule.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\LayerMappingRule.cs",
-              "RelativeToolTip": "Models\\Mapping\\LayerMappingRule.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:28:40.889Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LayerMappingService.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\LayerMappingService.cs",
-              "RelativeDocumentMoniker": "Services\\Parsing\\LayerMappingService.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\LayerMappingService.cs",
-              "RelativeToolTip": "Services\\Parsing\\LayerMappingService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAqwAIAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:30:01.385Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "AutoCADToRevitApplication.csproj",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\AutoCADToRevitApplication.csproj",
-              "RelativeDocumentMoniker": "AutoCADToRevitApplication.csproj",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\AutoCADToRevitApplication.csproj",
-              "RelativeToolTip": "AutoCADToRevitApplication.csproj",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAC4AAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-07T15:03:45.559Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Command.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Command.cs",
-              "RelativeDocumentMoniker": "Command.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Command.cs",
-              "RelativeToolTip": "Command.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-07T14:22:34.887Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "GridParser.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\GridParser.cs",
-              "RelativeDocumentMoniker": "Services\\Parsing\\GridParser.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\GridParser.cs",
-              "RelativeToolTip": "Services\\Parsing\\GridParser.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwAIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:29:52.055Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "App.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.cs",
-              "RelativeDocumentMoniker": "App.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.cs",
-              "RelativeToolTip": "App.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAIBJwB0AAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-07T14:20:08.824Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "cad2revit.png - PNG [32x32, 24 bit, PNG]",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Images\\cad2revit.png",
-              "RelativeDocumentMoniker": "Images\\cad2revit.png",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Images\\cad2revit.png - PNG [32x32, 24 bit, PNG]",
-              "RelativeToolTip": "Images\\cad2revit.png - PNG [32x32, 24 bit, PNG]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2026-06-07T15:22:52.4Z",
-              "EditorCaption": " - PNG [32x32, 24 bit, PNG]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Views\\MainWindow.xaml",
               "RelativeToolTip": "Views\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-06-08T02:41:56.622Z"
+              "WhenOpened": "2026-06-13T07:32:32.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SlabModel.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\SlabModel.cs",
+              "RelativeDocumentMoniker": "Models\\Elements\\SlabModel.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\SlabModel.cs",
+              "RelativeToolTip": "Models\\Elements\\SlabModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T17:13:49.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAAJoBAAAAAAAAAADwv6gBAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T03:14:25.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RevitDwgReaderService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\RevitDwgReaderService.cs",
+              "RelativeDocumentMoniker": "Services\\Parsing\\RevitDwgReaderService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\RevitDwgReaderService.cs",
+              "RelativeToolTip": "Services\\Parsing\\RevitDwgReaderService.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAWwMEAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T03:03:56.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SlabReaderService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\SlabReaderService.cs",
+              "RelativeDocumentMoniker": "Services\\Parsing\\SlabReaderService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\SlabReaderService.cs",
+              "RelativeToolTip": "Services\\Parsing\\SlabReaderService.cs",
+              "ViewState": "AgIAANoAAAAAcptYp5kiwJwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T03:04:22.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LevelCreationService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\LevelCreationService.cs",
+              "RelativeDocumentMoniker": "Services\\Creation\\LevelCreationService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\LevelCreationService.cs",
+              "RelativeToolTip": "Services\\Creation\\LevelCreationService.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAAGQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T09:37:05.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ColumnReaderService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\ColumnReaderService.cs",
+              "RelativeDocumentMoniker": "Services\\Parsing\\ColumnReaderService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\ColumnReaderService.cs",
+              "RelativeToolTip": "Services\\Parsing\\ColumnReaderService.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAjwDYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T06:19:30.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GridCreationService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\GridCreationService.cs",
+              "RelativeDocumentMoniker": "Services\\Creation\\GridCreationService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\GridCreationService.cs",
+              "RelativeToolTip": "Services\\Creation\\GridCreationService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwF4AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T08:40:14.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BeamCreationService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\BeamCreationService.cs",
+              "RelativeDocumentMoniker": "Services\\Creation\\BeamCreationService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\BeamCreationService.cs",
+              "RelativeToolTip": "Services\\Creation\\BeamCreationService.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAswHgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-13T02:59:51.397Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.config",
-              "RelativeDocumentMoniker": "App.config",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\App.config",
-              "RelativeToolTip": "App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-06-08T07:15:25.52Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Microsoft.Common.CurrentVersion.targets",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ViewState": "AgIAACATAAAAAAAAAAAAwDATAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2026-06-08T04:42:28.333Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "GridModel.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\GridModel.cs",
-              "RelativeDocumentMoniker": "Models\\Elements\\GridModel.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Elements\\GridModel.cs",
-              "RelativeToolTip": "Models\\Elements\\GridModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAA==",
+              "Title": "LayerMappingService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\LayerMappingService.cs",
+              "RelativeDocumentMoniker": "Services\\Parsing\\LayerMappingService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Parsing\\LayerMappingService.cs",
+              "RelativeToolTip": "Services\\Parsing\\LayerMappingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:27:46.145Z"
+              "WhenOpened": "2026-06-13T14:39:32.598Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "DwgLayer.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\DwgLayer.cs",
-              "RelativeDocumentMoniker": "Models\\Mapping\\DwgLayer.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\DwgLayer.cs",
-              "RelativeToolTip": "Models\\Mapping\\DwgLayer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "ColumnCreationService.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\ColumnCreationService.cs",
+              "RelativeDocumentMoniker": "Services\\Creation\\ColumnCreationService.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Services\\Creation\\ColumnCreationService.cs",
+              "RelativeToolTip": "Services\\Creation\\ColumnCreationService.cs",
+              "ViewState": "AgIAAGgBAAAAAAAAAAAAAHAAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:28:31.294Z"
+              "WhenOpened": "2026-06-13T08:42:09.533Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "MainWindow.g.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
-              "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
-              "RelativeToolTip": "obj\\Debug\\net8.0-windows\\Views\\MainWindow.g.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "ColumnCreationResult.cs",
+              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Results\\ColumnCreationResult.cs",
+              "RelativeDocumentMoniker": "Models\\Results\\ColumnCreationResult.cs",
+              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Results\\ColumnCreationResult.cs",
+              "RelativeToolTip": "Models\\Results\\ColumnCreationResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:37:40.364Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "RevitCreationResult.cs",
-              "DocumentMoniker": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\RevitCreationResult.cs",
-              "RelativeDocumentMoniker": "Models\\Mapping\\RevitCreationResult.cs",
-              "ToolTip": "C:\\Users\\THINKPAD P14S\\Downloads\\DATN-TINHOC\\AutoCADToRevitApplication\\Models\\Mapping\\RevitCreationResult.cs",
-              "RelativeToolTip": "Models\\Mapping\\RevitCreationResult.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-08T03:28:47.886Z"
+              "WhenOpened": "2026-06-13T07:36:58.897Z",
+              "EditorCaption": ""
             }
           ]
         }

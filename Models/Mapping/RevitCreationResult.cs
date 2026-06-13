@@ -1,10 +1,6 @@
 namespace AutoCADToRevitApplication.Models.Mapping
 {
     public enum CreationStatus { Success, Skipped, Failed, Conflict }
-
-    /// <summary>
-    /// Kết quả sau khi tạo một cấu kiện trong Revit.
-    /// </summary>
     public class RevitCreationResult
     {
         public string       ElementType { get; set; } = string.Empty;
