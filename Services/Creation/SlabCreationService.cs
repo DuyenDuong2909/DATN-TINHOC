@@ -8,7 +8,7 @@ namespace AutoCADToRevitApplication.Services.Creation
     {
         private readonly Document _doc;
         private const double DuplicateToleranceMm = 50.0;
-        private const double MinLoopAreaMm2 = 100000.0;
+        private const double MinLoopAreaMm2 = 10000.0;
         private const string GeneratedSlabMarker = "AutoCADToRevitApplication";
 
         public SlabCreationService(Document doc)
@@ -19,14 +19,12 @@ namespace AutoCADToRevitApplication.Services.Creation
         public SlabCreationResult CreateSlabs(
             IReadOnlyCollection<SlabModel> slabModels,
             IReadOnlyCollection<GridModel> gridModels,
-            string slabLevelName,
-            double zOffsetMm)
+            string slabLevelName)
         {
             return CreateSlabs(
                 slabModels,
                 gridModels,
                 GetSlabLevel(slabLevelName),
-                zOffsetMm,
                 true);
         }
 
@@ -34,40 +32,38 @@ namespace AutoCADToRevitApplication.Services.Creation
             IReadOnlyCollection<SlabModel> slabModels,
             IReadOnlyCollection<GridModel> gridModels,
             Level? level,
-            double zOffsetMm,
             bool deleteExistingGenerated)
         {
             var result = new SlabCreationResult();
 
             if (slabModels.Count == 0)
             {
-                result.Messages.Add("Chua co du lieu san de ve.");
+                result.Messages.Add("Chưa có dữ liệu sàn để vẽ");
                 return result;
             }
 
             if (gridModels.Count == 0)
             {
-                result.Messages.Add("Can co du lieu luoi truc de dat san dung toa do CAD.");
+                result.Messages.Add("Cần có dữ liệu lưới trục để đặt sàn đúng tọa độ CAD");
                 return result;
             }
 
             if (level == null)
             {
-                result.Messages.Add("Khong xac dinh duoc Level dat san.");
+                result.Messages.Add("Không xác định được Level đặt sàn");
                 return result;
             }
 
             var baseType = FindBaseFloorType();
             if (baseType == null)
             {
-                result.Messages.Add("Khong tim thay Floor Type de tao san. Vui long load san truoc khi ve.");
+                result.Messages.Add("Không tìm thấy Floor Type để tạo sàn, vui lòng load sàn trước khi vẽ");
                 return result;
             }
 
             var placement = SlabPlacement.From(gridModels);
             var createdKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var existingKeys = GetExistingSlabKeys();
-            var zOffset = MmToFeet(zOffsetMm);
 
             using var transaction = new Transaction(_doc, "Create slabs from CAD");
             transaction.Start();
@@ -82,7 +78,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (slabModel.OuterLoop.Count < 3 || slabModel.Area < MinLoopAreaMm2)
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua san khong hop le tai {slabModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua sàn không hợp lệ tại {slabModel.CenterPoint}");
                         continue;
                     }
 
@@ -90,7 +86,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (floorType == null)
                     {
                         result.Failed++;
-                        result.Messages.Add($"Khong tao duoc Floor Type day {slabModel.Thickness:F0}mm.");
+                        result.Messages.Add($"Không tạo được Floor Type dày {slabModel.Thickness:F0}mm");
                         continue;
                     }
 
@@ -98,7 +94,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (profile.Count == 0)
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua san khong tao duoc duong bao tai {slabModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua sàn không tạo được đường bao tại {slabModel.CenterPoint}");
                         continue;
                     }
 
@@ -106,13 +102,12 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (existingKeys.Contains(key) || createdKeys.Contains(key))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bo qua san trung tai {slabModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua sàn trùng tại {slabModel.CenterPoint}");
                         continue;
                     }
 
                     var floor = Floor.Create(_doc, profile, floorType.Id, level.Id);
                     MarkGeneratedSlab(floor);
-                    SetSlabOffset(floor, zOffset);
 
                     createdKeys.Add(key);
                     result.Created++;
@@ -121,7 +116,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                 catch (Exception ex)
                 {
                     result.Failed++;
-                    result.Messages.Add($"Khong tao duoc san day {slabModel.Thickness:F0}mm: {ex.Message}");
+                    result.Messages.Add($"Không tạo được sàn dày {slabModel.Thickness:F0}mm: {TrimTrailingPeriod(ex.Message)}");
                 }
             }
 
@@ -264,11 +259,6 @@ namespace AutoCADToRevitApplication.Services.Creation
             return curveLoop.IsOpen() ? null : curveLoop;
         }
 
-        private static void SetSlabOffset(Floor floor, double zOffset)
-        {
-            TrySetDoubleParameter(floor, BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM, zOffset);
-        }
-
         private void DeleteGeneratedSlabs()
         {
             var generatedSlabIds = new FilteredElementCollector(_doc)
@@ -388,6 +378,11 @@ namespace AutoCADToRevitApplication.Services.Creation
 
         private static double FeetToMm(double value)
             => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Millimeters);
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
 
         private class SlabPlacement
         {

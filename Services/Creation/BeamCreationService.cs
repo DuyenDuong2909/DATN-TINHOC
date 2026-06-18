@@ -22,7 +22,6 @@ namespace AutoCADToRevitApplication.Services.Creation
             IReadOnlyCollection<BeamModel> beamModels,
             IReadOnlyCollection<GridModel> gridModels,
             Level? level,
-            double zOffsetMm,
             bool deleteExistingGenerated)
         {
             var result = new BeamCreationResult();
@@ -48,14 +47,13 @@ namespace AutoCADToRevitApplication.Services.Creation
             var baseSymbol = FindBaseBeamSymbol();
             if (baseSymbol == null)
             {
-                result.Messages.Add($"Không tìm thầy Family dầm '{DefaultBeamFamilyName}'. Vui lòng load Family trước");
+                result.Messages.Add($"Không tìm thấy Family dầm '{DefaultBeamFamilyName}', vui lòng load Family trước");
                 return result;
             }
 
             var placement = BeamPlacement.From(gridModels);
             var createdKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var existingKeys = GetExistingBeamKeys();
-            var zOffset = MmToFeet(zOffsetMm);
             var elevation = level.Elevation;
 
             using var transaction = new Transaction(_doc, "Tạo dầm từ file CAD");
@@ -71,7 +69,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (beamModel.Length < MinBeamLengthMm)
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bỏ qua dầm tại {beamModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua dầm tại {beamModel.CenterPoint}");
                         continue;
                     }
 
@@ -79,7 +77,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (symbol == null)
                     {
                         result.Failed++;
-                        result.Messages.Add($"Không tạo được Type dầm {beamModel.Width:F0}x{beamModel.Height:F0}.");
+                        result.Messages.Add($"Không tạo được Type dầm {beamModel.Width:F0}x{beamModel.Height:F0}");
                         continue;
                     }
 
@@ -96,14 +94,14 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (existingKeys.Contains(key) || createdKeys.Contains(key))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bỏ qua dầm trùng tại {beamModel.CenterPoint}.");
+                        result.Messages.Add($"Bỏ qua dầm trùng tại {beamModel.CenterPoint}");
                         continue;
                     }
 
                     var line = Line.CreateBound(start, end);
                     var instance = _doc.Create.NewFamilyInstance(line, symbol, level, StructuralType.Beam);
                     MarkGeneratedBeam(instance);
-                    SetBeamOffsets(instance, level, zOffset);
+                    SetBeamOffsets(instance, level);
 
                     createdKeys.Add(key);
                     result.Created++;
@@ -112,7 +110,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                 catch (Exception ex)
                 {
                     result.Failed++;
-                    result.Messages.Add($"Không tạo được dầmm {beamModel.Width:F0}x{beamModel.Height:F0}: {ex.Message}");
+                    result.Messages.Add($"Không tạo được dầm {beamModel.Width:F0}x{beamModel.Height:F0}: {TrimTrailingPeriod(ex.Message)}");
                 }
             }
 
@@ -178,10 +176,9 @@ namespace AutoCADToRevitApplication.Services.Creation
             return false;
         }
 
-        private static void SetBeamOffsets(FamilyInstance instance, Level level, double zOffset)
+        private static void SetBeamOffsets(FamilyInstance instance, Level level)
         {
             TrySetElementIdParameter(instance, BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM, level.Id);
-            TrySetDoubleParameter(instance, BuiltInParameter.Z_OFFSET_VALUE, zOffset);
             TrySetDoubleParameter(instance, BuiltInParameter.STRUCTURAL_BEAM_END0_ELEVATION, 0);
             TrySetDoubleParameter(instance, BuiltInParameter.STRUCTURAL_BEAM_END1_ELEVATION, 0);
         }
@@ -269,6 +266,11 @@ namespace AutoCADToRevitApplication.Services.Creation
 
         private static double FeetToMm(double value)
             => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Millimeters);
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
 
         private class BeamPlacement
         {

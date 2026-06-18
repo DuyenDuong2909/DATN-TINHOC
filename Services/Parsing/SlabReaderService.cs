@@ -45,7 +45,7 @@ namespace AutoCADToRevitApplication.Services.Parsing
                 yield break;
 
             var points = NormalizeLoop(polyLine.GetCoordinates().Select(ToPoint2D).ToList());
-            if (!IsClosed(points) || points.Count < 4)
+            if (!IsClosed(points) || points.Count < 3)
                 yield break;
 
             points.RemoveAt(points.Count - 1);

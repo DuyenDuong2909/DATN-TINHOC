@@ -25,21 +25,21 @@ namespace AutoCADToRevitApplication.Services.Creation
             if (numberOfFloors < 1)
             {
                 result.Failed++;
-                result.Messages.Add("Số tầng phải lớn hơn hoặc bằng 1.");
+                result.Messages.Add("Số tầng phải lớn hơn hoặc bằng 1");
                 return result;
             }
 
             if (firstFloorHeightMm <= 0)
             {
                 result.Failed++;
-                result.Messages.Add("Chiều cao tầng 1 phải lớn hơn 0.");
+                result.Messages.Add("Chiều cao tầng 1 phải lớn hơn 0");
                 return result;
             }
 
             if (numberOfFloors > 1 && typicalFloorHeightMm <= 0)
             {
                 result.Failed++;
-                result.Messages.Add("Chiều cao tầng điển hình phải lớn hơn 0 khi số tầng > 1.");
+                result.Messages.Add("Chiều cao tầng điển hình phải lớn hơn 0 khi số tầng > 1");
                 return result;
             }
 
@@ -76,7 +76,7 @@ namespace AutoCADToRevitApplication.Services.Creation
             {
                 transaction.RollBack();
                 result.Failed++;
-                result.Messages.Add($"Không tạo/cập nhật được Level: {ex.Message}");
+                result.Messages.Add($"Không tạo/cập nhật được Level: {TrimTrailingPeriod(ex.Message)}");
             }
 
             return result;
@@ -162,5 +162,10 @@ namespace AutoCADToRevitApplication.Services.Creation
 
         private static double MmToFeet(double value)
             => UnitUtils.ConvertToInternalUnits(value, UnitTypeId.Millimeters);
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
     }
 }

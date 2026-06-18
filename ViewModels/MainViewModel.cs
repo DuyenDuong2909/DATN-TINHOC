@@ -28,9 +28,9 @@ namespace AutoCADToRevitApplication.ViewModels
 
         public event Action? RequestClose;
 
-        [ObservableProperty] private string _dwgFileName = "Chưa tìm thấy file DWG...";
+        [ObservableProperty] private string _dwgFileName = "Chưa tìm thấy file DWG";
         [ObservableProperty] private bool _isFileLoaded;
-        [ObservableProperty] private string _statusMessage = "Chưa đọc file CAD. Vui lòng nhấn 'Đọc CAD' để bắt đầu.";
+        [ObservableProperty] private string _statusMessage = "Chưa đọc file CAD, vui lòng nhấn 'Đọc CAD' để bắt đầu";
         [ObservableProperty] private Brush _statusColor = new SolidColorBrush(MediaColor.FromRgb(0x78, 0x90, 0x9C));
         [ObservableProperty] private ObservableCollection<DwgLayer> _layers = new();
         [ObservableProperty] private int _gridCount;
@@ -45,7 +45,6 @@ namespace AutoCADToRevitApplication.ViewModels
         [ObservableProperty] private string _columnTopOffset = "0";
         [ObservableProperty] private string _slabThickness = "130";
         [ObservableProperty] private string _beamHeight = "700";
-        [ObservableProperty] private string _beamZOffset = "0";
         [ObservableProperty] private ObservableCollection<string> _beamLevelNames = new();
         [ObservableProperty] private string _selectedBeamLevelName = string.Empty;
         [ObservableProperty] private string _xStartName = "A";
@@ -101,11 +100,11 @@ namespace AutoCADToRevitApplication.ViewModels
                 {
                     _currentDwgInstanceId = instance.Id;
                     DwgFileName = instance.Category?.Name ?? instance.Name ?? "DWG File";
-                    SetStatus($"Tìm thấy file DWG: {DwgFileName}. Nhấn 'Đọc CAD' để đọc dữ liệu.", StatusType.Info);
+                    SetStatus($"Tìm thấy file DWG: {DwgFileName}, nhấn 'Đọc CAD' để đọc dữ liệu", StatusType.Info);
                 }
                 else
                 {
-                    SetStatus("Không tìm thấy file DWG trong model. Vui lòng Import file DWG vào Revit trước.", StatusType.Error);
+                    SetStatus("Không tìm thấy file DWG trong model, vui lòng import file DWG vào Revit trước", StatusType.Error);
                 }
             }
             catch (Exception ex)
@@ -119,7 +118,7 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             if (_doc == null)
             {
-                SetStatus("Không có Revit document đang mở.", StatusType.Error);
+                SetStatus("Không có Revit document đang mở", StatusType.Error);
                 return;
             }
 
@@ -142,7 +141,7 @@ namespace AutoCADToRevitApplication.ViewModels
                 Layers.Clear();
                 ResetCounts();
                 IsFileLoaded = false;
-                SetStatus($"Đã import CAD: {DwgFileName}. Nhấn 'Đọc CAD' để đọc layer và thông số.", StatusType.Success);
+                SetStatus($"Đã import CAD: {DwgFileName}, nhấn 'Đọc CAD' để đọc layer và thông số", StatusType.Success);
             }
             catch (Exception ex)
             {
@@ -155,11 +154,11 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             if (_doc == null)
             {
-                SetStatus("Không có Revit document đang mở.", StatusType.Error);
+                SetStatus("Không có Revit document đang mở", StatusType.Error);
                 return;
             }
 
-            SetStatus("Đang đọc file DWG từ Revit...", StatusType.Pending);
+            SetStatus("Đang đọc file DWG từ Revit", StatusType.Pending);
             Layers.Clear();
             ResetCounts();
 
@@ -168,7 +167,7 @@ namespace AutoCADToRevitApplication.ViewModels
                 var result = await Task.Run(ReadDwgFromRevit);
                 if (result == null)
                 {
-                    SetStatus("Không tìm thấy file DWG trong model. Vui lòng Import file DWG vào Revit.", StatusType.Error);
+                    SetStatus("Không tìm thấy file DWG trong model, vui lòng import file DWG vào Revit", StatusType.Error);
                     return;
                 }
 
@@ -181,7 +180,7 @@ namespace AutoCADToRevitApplication.ViewModels
                     Layers.Add(layer);
 
                 UpdateCounts();
-                SetStatus($"Đã đọc CAD: Lưới trục {_parsedGrids.Count}, Cột {_parsedColumns.Count}, Dầm {_parsedBeams.Count}, Sàn {_parsedSlabs.Count}.", StatusType.Success);
+                SetStatus($"Đã đọc CAD: lưới trục {_parsedGrids.Count}, cột {_parsedColumns.Count}, dầm {_parsedBeams.Count}, sàn {_parsedSlabs.Count}", StatusType.Success);
                 IsFileLoaded = true;
             }
             catch (Exception ex)
@@ -195,7 +194,7 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             ReparseCurrentLayerMapping();
             UpdateCounts();
-            SetStatus("Đã áp dụng gán layer. Kiểm tra thống kê bên dưới.", StatusType.Success);
+            SetStatus("Đã áp dụng gán layer, kiểm tra thống kê bên dưới", StatusType.Success);
         }
 
         [RelayCommand]
@@ -203,19 +202,19 @@ namespace AutoCADToRevitApplication.ViewModels
         {
             if (_doc == null)
             {
-                SetStatus("Không có Revit document đang mở.", StatusType.Error);
+                SetStatus("Không có Revit document đang mở", StatusType.Error);
                 return;
             }
 
             if (_parsedGrids.Count == 0)
             {
-                SetStatus("Chưa có dữ liệu lưới trục. Vui lòng đọc CAD trước.", StatusType.Error);
+                SetStatus("Chưa có dữ liệu lưới trục, vui lòng đọc CAD trước", StatusType.Error);
                 return;
             }
 
             if (CreateBeam && !TryParsePositiveDouble(BeamHeight, out _))
             {
-                SetStatus("Chiều cao dầm phải là số dương. Bề rộng dầm sẽ được lấy theo khoảng cách hai biên trên bản vẽ CAD.", StatusType.Error);
+                SetStatus("Chiều cao dầm phải là số dương, bề rộng dầm sẽ được lấy theo khoảng cách hai biên trên bản vẽ CAD", StatusType.Error);
                 return;
             }
 
@@ -227,19 +226,19 @@ namespace AutoCADToRevitApplication.ViewModels
 
             if (CreateColumn && _parsedColumns.Count == 0)
             {
-                SetStatus("Đã tích vẽ cột nhưng chưa đọc được dữ liệu cột từ CAD.", StatusType.Error);
+                SetStatus("Đã tích vẽ cột nhưng chưa đọc được dữ liệu cột từ CAD", StatusType.Error);
                 return;
             }
 
             if (CreateBeam && _parsedBeams.Count == 0)
             {
-                SetStatus("Đã tích vẽ dầm nhưng chưa đọc được dữ liệu dầm từ CAD.", StatusType.Error);
+                SetStatus("Đã tích vẽ dầm nhưng chưa đọc được dữ liệu dầm từ CAD", StatusType.Error);
                 return;
             }
 
             if (CreateSlab && _parsedSlabs.Count == 0)
             {
-                SetStatus("Đã tích vẽ sàn nhưng chưa đọc được dữ liệu sàn từ CAD.", StatusType.Error);
+                SetStatus("Đã tích vẽ sàn nhưng chưa đọc được dữ liệu sàn từ CAD", StatusType.Error);
                 return;
             }
 
@@ -250,7 +249,6 @@ namespace AutoCADToRevitApplication.ViewModels
                 var typicalFloorHeight = ParsePositiveDouble(TypicalHeight, firstFloorHeight);
                 var baseOffset = ParseDouble(ColumnBaseOffset, 0.0);
                 var topOffset = ParseDouble(ColumnTopOffset, 0.0);
-                var zOffset = ParseDouble(BeamZOffset, 0.0);
                 var selectedBeamSlabLevelName = SelectedBeamLevelName;
 
                 var levelService = new LevelCreationService(_doc);
@@ -261,7 +259,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
                 if (levelResult.Failed > 0 || levelResult.Levels.Count < numberOfFloors + 1)
                 {
-                    SetStatus($"Không tạo được danh sách Level. Lỗi: {levelResult.Failed}.", StatusType.Error);
+                    SetStatus($"Không tạo được danh sách Level, lỗi: {levelResult.Failed}", StatusType.Error);
                     return;
                 }
 
@@ -287,7 +285,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
                 if (gridResult.Failed > 0)
                 {
-                    SetStatus($"Đã tạo {gridResult.Created} lưới trục, bỏ qua {gridResult.Skipped}, lỗi {gridResult.Failed}.", StatusType.Error);
+                    SetStatus($"Đã tạo {gridResult.Created} lưới trục, bỏ qua {gridResult.Skipped}, lỗi {gridResult.Failed}", StatusType.Error);
                     return;
                 }
 
@@ -312,7 +310,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
                         if (columnResult.Failed > 0)
                         {
-                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột; lỗi cột {columnResult.Failed} tại tầng {floorIndex + 1}.", StatusType.Error);
+                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột; lỗi cột {columnResult.Failed} tại tầng {floorIndex + 1}", StatusType.Error);
                             return;
                         }
                     }
@@ -328,7 +326,6 @@ namespace AutoCADToRevitApplication.ViewModels
                             _parsedBeams,
                             _parsedGrids,
                             levelResult.Levels[levelIndex],
-                            zOffset,
                             false);
 
                         beamCreated += beamResult.Created;
@@ -337,7 +334,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
                         if (beamResult.Failed > 0)
                         {
-                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm; lỗi dầm {beamResult.Failed} tại {levelResult.Levels[levelIndex].Name}.", StatusType.Error);
+                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm; lỗi dầm {beamResult.Failed} tại {levelResult.Levels[levelIndex].Name}", StatusType.Error);
                             return;
                         }
                     }
@@ -353,7 +350,6 @@ namespace AutoCADToRevitApplication.ViewModels
                             _parsedSlabs,
                             _parsedGrids,
                             levelResult.Levels[levelIndex],
-                            zOffset,
                             false);
 
                         slabCreated += slabResult.Created;
@@ -362,7 +358,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
                         if (slabResult.Failed > 0)
                         {
-                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm, {slabCreated} sàn; lỗi sàn {slabResult.Failed} tại {levelResult.Levels[levelIndex].Name}.", StatusType.Error);
+                            SetStatus($"Đã tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm, {slabCreated} sàn; lỗi sàn {slabResult.Failed} tại {levelResult.Levels[levelIndex].Name}", StatusType.Error);
                             return;
                         }
                     }
@@ -370,11 +366,11 @@ namespace AutoCADToRevitApplication.ViewModels
 
                 if (createdElementIds.Count == 0)
                 {
-                    SetStatus($"Không tạo thêm cấu kiện mới. Lưới bỏ qua: {gridSkipped}, cột bỏ qua: {columnSkipped}, dầm: {beamSkipped}, sàn: {slabSkipped}.", StatusType.Info);
+                    SetStatus($"Không tạo thêm cấu kiện mới, lưới bỏ qua: {gridSkipped}, cột bỏ qua: {columnSkipped}, dầm: {beamSkipped}, sàn: {slabSkipped}", StatusType.Info);
                     return;
                 }
 
-                SetStatus($"Đã tạo/cập nhật Level: mới {levelResult.Created}, cập nhật {levelResult.Updated}. Tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm, {slabCreated} sàn. Bỏ qua lưới: {gridSkipped}, cột: {columnSkipped}, dầm: {beamSkipped}, sàn: {slabSkipped}.", StatusType.Success);
+                SetStatus($"Đã tạo/cập nhật Level: mới {levelResult.Created}, cập nhật {levelResult.Updated}, tạo {gridCreated} lưới trục, {columnCreated} cột, {beamCreated} dầm, {slabCreated} sàn, bỏ qua lưới: {gridSkipped}, cột: {columnSkipped}, dầm: {beamSkipped}, sàn: {slabSkipped}", StatusType.Success);
                 RequestClose?.Invoke();
             }
             catch (Exception ex)
@@ -569,7 +565,7 @@ namespace AutoCADToRevitApplication.ViewModels
 
         private void SetStatus(string message, StatusType type)
         {
-            StatusMessage = message;
+            StatusMessage = TrimTrailingPeriod(message);
             StatusColor = type switch
             {
                 StatusType.Success => new SolidColorBrush(MediaColor.FromRgb(0x2E, 0x7D, 0x32)),
@@ -578,6 +574,11 @@ namespace AutoCADToRevitApplication.ViewModels
                 _ => new SolidColorBrush(MediaColor.FromRgb(0x78, 0x90, 0x9C))
             };
         }
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
 
         private class DwgReadResult
         {

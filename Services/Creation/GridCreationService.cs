@@ -22,14 +22,14 @@ namespace AutoCADToRevitApplication.Services.Creation
 
             if (gridModels.Count == 0)
             {
-                result.Messages.Add("Chưa có dữ liệu lưới trục để vẽ.");
+                result.Messages.Add("Chưa có dữ liệu lưới trục để vẽ");
                 return result;
             }
 
             var activeLevel = GetActiveLevel();
             if (activeLevel == null)
             {
-                result.Messages.Add("Không xác định được Level hiện hành từ Active View.");
+                result.Messages.Add("Không xác định được Level hiện hành từ khung nhìn đang mở");
                 return result;
             }
 
@@ -47,14 +47,14 @@ namespace AutoCADToRevitApplication.Services.Creation
                 if (string.IsNullOrWhiteSpace(model.Name))
                 {
                     result.Skipped++;
-                    result.Messages.Add("Bỏ qua một lưới trục chưa có tên.");
+                    result.Messages.Add("Bỏ qua một lưới trục chưa có tên");
                     continue;
                 }
 
                 if (existingNames.Contains(model.Name))
                 {
                     result.Skipped++;
-                    result.Messages.Add($"Bỏ qua lưới trục '{model.Name}' vì tên đã tồn tại trong Revit.");
+                    result.Messages.Add($"Bỏ qua lưới trục '{model.Name}' vì tên đã tồn tại trong Revit");
                     continue;
                 }
 
@@ -64,7 +64,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (existingGridKeys.Contains(gridKey) || createdGridKeys.Contains(gridKey))
                     {
                         result.Skipped++;
-                        result.Messages.Add($"Bỏ qua lưới trục '{model.Name}' vì trùng tọa độ với lưới trục khác.");
+                        result.Messages.Add($"Bỏ qua lưới trục '{model.Name}' vì trùng tọa độ với lưới trục khác");
                         continue;
                     }
 
@@ -80,7 +80,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                 catch (Exception ex)
                 {
                     result.Failed++;
-                    result.Messages.Add($"Không tạo được lưới trục '{model.Name}': {ex.Message}");
+                    result.Messages.Add($"Không tạo được lưới trục '{model.Name}': {TrimTrailingPeriod(ex.Message)}");
                 }
             }
 
@@ -299,6 +299,11 @@ namespace AutoCADToRevitApplication.Services.Creation
 
         private static double FeetToMm(double value)
             => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Millimeters);
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
 
         private static double Clamp(double value, double min, double max)
             => Math.Min(Math.Max(value, min), max);

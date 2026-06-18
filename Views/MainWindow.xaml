@@ -171,9 +171,6 @@
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding BeamLevelNames}"
                                   SelectedItem="{Binding SelectedBeamLevelName}" Margin="10,2,0,2"/>
-                        <Label Grid.Row="3" Grid.Column="5" Content="Z Offset dầm/sàn:" Style="{StaticResource FieldLabel}" Grid.ColumnSpan="2" Margin="2,6,356,0" VerticalAlignment="Top"/>
-                        <TextBox Grid.Row="3" Grid.Column="8" Style="{StaticResource InputTextBox}" Text="{Binding BeamZOffset}" Margin="51,0,276,4"/>
-                        <Label Grid.Row="3" Grid.Column="6" Content="mm" Style="{StaticResource UnitLabel}" Margin="158,6,185,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
 

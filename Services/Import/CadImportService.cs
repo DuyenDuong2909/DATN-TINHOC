@@ -14,10 +14,10 @@ namespace AutoCADToRevitApplication.Services.Import
         public ElementId ImportDwg(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
-                throw new ArgumentException("Duong dan file CAD khong hop le.", nameof(filePath));
+                throw new ArgumentException("Đường dẫn file CAD không hợp lệ", nameof(filePath));
 
             if (!System.IO.File.Exists(filePath))
-                throw new System.IO.FileNotFoundException("Khong tim thay file CAD.", filePath);
+                throw new System.IO.FileNotFoundException("Không tìm thấy file CAD", filePath);
 
             var view = GetImportView();
             var options = new DWGImportOptions
@@ -38,7 +38,7 @@ namespace AutoCADToRevitApplication.Services.Import
             if (!imported || importedElementId == ElementId.InvalidElementId)
             {
                 transaction.RollBack();
-                throw new InvalidOperationException("Revit khong import duoc file CAD da chon.");
+                throw new InvalidOperationException("Revit không import được file CAD đã chọn");
             }
 
             transaction.Commit();
@@ -58,7 +58,7 @@ namespace AutoCADToRevitApplication.Services.Import
             if (viewPlan != null)
                 return viewPlan;
 
-            throw new InvalidOperationException("Khong tim thay view hop le de import CAD.");
+            throw new InvalidOperationException("Không tìm thấy view hợp lệ để import CAD");
         }
     }
 }

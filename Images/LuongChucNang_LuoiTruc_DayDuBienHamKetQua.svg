@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="5680" viewBox="0 0 1600 5680">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#111"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 26px; font-weight: 700; fill: #111; }
+      .panel-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #111; }
+      .txt { font-family: Arial, sans-serif; font-size: 17px; fill: #111; text-anchor: middle; dominant-baseline: middle; }
+      .small { font-family: Arial, sans-serif; font-size: 15px; fill: #111; text-anchor: middle; dominant-baseline: middle; }
+      .label { font-family: Arial, sans-serif; font-size: 15px; fill: #111; text-anchor: middle; dominant-baseline: middle; }
+      .shape { fill: #fff; stroke: #111; stroke-width: 2; }
+      .panel { fill: #fff; stroke: #111; stroke-width: 1.5; }
+      .line { fill: none; stroke: #111; stroke-width: 2; marker-end: url(#arrow); }
+      .plain { fill: none; stroke: #111; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="5680" fill="#fff"/>
+  <text x="800" y="45" class="title">LƯU ĐỒ TỔNG THỂ VÀ CÁC LƯU ĐỒ CHƯƠNG TRÌNH CON</text>
+
+  <!-- ===================== LUU DO TONG THE ===================== -->
+  <rect x="70" y="80" width="1460" height="2230" rx="8" class="panel"/>
+  <text x="800" y="120" class="panel-title">1. Lưu đồ tổng thể chương trình chuyển đổi CAD 2D sang mô hình Revit 3D</text>
+
+  <g id="main-flow">
+    <ellipse cx="800" cy="180" rx="95" ry="34" class="shape"/>
+    <text x="800" y="180" class="txt">BẮT ĐẦU</text>
+
+    <rect x="670" y="245" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="267" class="txt"><tspan x="800">Mở add-in trong</tspan><tspan x="800" dy="22">môi trường Revit</tspan></text>
+
+    <polygon points="800,350 940,425 800,500 660,425" class="shape"/>
+    <text x="800" y="414" class="txt"><tspan x="800">Đã có file CAD</tspan><tspan x="800" dy="22">trong model?</tspan></text>
+
+    <path d="M800 214 L800 245" class="line"/>
+    <path d="M800 307 L800 350" class="line"/>
+
+    <path d="M660 425 L485 425 L485 530" class="line"/>
+    <text x="565" y="407" class="label">KHÔNG</text>
+    <path d="M610 500 L360 500 L335 562 L585 562 Z" class="shape"/>
+    <text x="485" y="523" class="txt"><tspan x="485">Chọn file DWG/DXF</tspan><tspan x="485" dy="22">và import vào Revit</tspan></text>
+
+    <path d="M800 500 L800 602" class="line"/>
+    <text x="825" y="533" class="label">CÓ</text>
+    <path d="M485 562 L485 635 L670 635" class="line"/>
+
+    <rect x="670" y="604" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="626" class="txt"><tspan x="800">Đọc CAD và lấy</tspan><tspan x="800" dy="22">danh sách layer</tspan></text>
+
+    <rect x="670" y="720" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="742" class="txt"><tspan x="800">Tự động gán layer</tspan><tspan x="800" dy="22">theo loại cấu kiện</tspan></text>
+    <path d="M800 666 L800 720" class="line"/>
+
+    <path d="M650 835 L950 835 L920 907 L620 907 Z" class="shape"/>
+    <text x="785" y="860" class="txt"><tspan x="785">Kiểm tra layer, nhập thông số</tspan><tspan x="785" dy="22">và chọn cột/dầm/sàn cần tạo</tspan></text>
+    <path d="M800 782 L800 835" class="line"/>
+
+    <rect x="670" y="960" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="982" class="txt"><tspan x="800">Áp dụng gán layer</tspan><tspan x="800" dy="22">và đọc lại dữ liệu</tspan></text>
+    <path d="M800 907 L800 960" class="line"/>
+
+    <polygon points="800,1062 955,1142 800,1222 645,1142" class="shape"/>
+    <text x="800" y="1131" class="txt"><tspan x="800">Có dữ liệu</tspan><tspan x="800" dy="22">lưới trục?</tspan></text>
+    <path d="M800 1022 L800 1062" class="line"/>
+
+    <path d="M645 1142 L430 1142 L430 1285" class="line"/>
+    <text x="535" y="1124" class="label">KHÔNG</text>
+    <path d="M325 1285 L535 1285 L535 1340 Q430 1320 325 1340 Z" class="shape"/>
+    <text x="430" y="1309" class="txt">THÔNG BÁO LỖI</text>
+
+    <path d="M800 1222 L800 1280" class="line"/>
+    <text x="825" y="1245" class="label">CÓ</text>
+    <rect x="670" y="1280" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="1302" class="txt"><tspan x="800">Tạo/cập nhật Level</tspan><tspan x="800" dy="22">theo thông số tầng</tspan></text>
+
+    <rect x="670" y="1385" width="260" height="62" rx="8" class="shape"/>
+    <text x="800" y="1407" class="txt"><tspan x="800">Tạo lưới trục</tspan><tspan x="800" dy="22">theo dữ liệu CAD</tspan></text>
+    <path d="M800 1342 L800 1385" class="line"/>
+
+    <polygon points="800,1490 945,1565 800,1640 655,1565" class="shape"/>
+    <text x="800" y="1554" class="txt"><tspan x="800">Tạo Level/lưới</tspan><tspan x="800" dy="22">thành công?</tspan></text>
+    <path d="M800 1447 L800 1490" class="line"/>
+
+    <path d="M655 1565 L430 1565 L430 1340" class="line"/>
+    <text x="535" y="1547" class="label">KHÔNG</text>
+  </g>
+
+  <!-- Main optional element block. Details are expanded in the subflows below. -->
+  <g id="main-options">
+    <path d="M800 1640 L800 1688" class="line"/>
+    <text x="825" y="1665" class="label">CÓ</text>
+
+    <rect x="640" y="1688" width="320" height="62" rx="8" class="shape"/>
+    <text x="800" y="1710" class="txt"><tspan x="800">Xét các tùy chọn</tspan><tspan x="800" dy="22">tạo cột, dầm, sàn</tspan></text>
+
+    <polygon points="800,1795 970,1875 800,1955 630,1875" class="shape"/>
+    <text x="800" y="1864" class="txt"><tspan x="800">Dữ liệu cấu kiện</tspan><tspan x="800" dy="22">được chọn hợp lệ?</tspan></text>
+
+    <rect x="640" y="2005" width="320" height="62" rx="8" class="shape"/>
+    <text x="800" y="2027" class="txt"><tspan x="800">Thực hiện các lưu đồ con</tspan><tspan x="800" dy="22">tương ứng với checkbox</tspan></text>
+
+    <rect x="640" y="2110" width="320" height="62" rx="8" class="shape"/>
+    <text x="800" y="2132" class="txt"><tspan x="800">Tổng hợp kết quả</tspan><tspan x="800" dy="22">và chọn cấu kiện mới</tspan></text>
+
+    <ellipse cx="800" cy="2250" rx="95" ry="34" class="shape"/>
+    <text x="800" y="2250" class="txt">KẾT THÚC</text>
+
+    <path d="M800 1750 L800 1795" class="line"/>
+    <path d="M800 1955 L800 2005" class="line"/>
+    <text x="825" y="1980" class="label">CÓ</text>
+    <path d="M800 2067 L800 2110" class="line"/>
+    <path d="M800 2172 L800 2216" class="line"/>
+    <path d="M630 1875 L430 1875 L430 1340" class="line"/>
+    <text x="530" y="1857" class="label">KHÔNG</text>
+    <path d="M430 1340 L430 2250 L705 2250" class="line"/>
+  </g>
+
+  <!-- ===================== SUBFLOW PANELS ===================== -->
+  <g transform="translate(0,620)">
+  <text x="800" y="1735" class="title">2. Các lưu đồ chương trình con</text>
+
+  <!-- Doc CAD va gan layer -->
+  <rect x="70" y="1780" width="700" height="920" rx="8" class="panel"/>
+  <text x="420" y="1820" class="panel-title">2.1. Chương trình con đọc CAD và gán layer</text>
+
+  <ellipse cx="420" cy="1885" rx="82" ry="30" class="shape"/>
+  <text x="420" y="1885" class="small">BẮT ĐẦU</text>
+  <rect x="285" y="1945" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="1966" class="small"><tspan x="420">Nhận đối tượng CAD</tspan><tspan x="420" dy="19">đang import/link</tspan></text>
+  <polygon points="420,2045 555,2115 420,2185 285,2115" class="shape"/>
+  <text x="420" y="2105" class="small"><tspan x="420">Có tìm thấy</tspan><tspan x="420" dy="19">CAD?</tspan></text>
+  <rect x="285" y="2230" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="2251" class="small"><tspan x="420">Tách hình học CAD</tspan><tspan x="420" dy="19">theo từng layer</tspan></text>
+  <rect x="285" y="2335" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="2356" class="small"><tspan x="420">Tự động nhận dạng</tspan><tspan x="420" dy="19">lưới, cột, dầm, sàn</tspan></text>
+  <path d="M250 2440 L590 2440 L558 2502 L218 2502 Z" class="shape"/>
+  <text x="404" y="2463" class="small"><tspan x="404">Người dùng kiểm tra</tspan><tspan x="404" dy="19">và chỉnh loại layer</tspan></text>
+  <rect x="285" y="2548" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="2569" class="small"><tspan x="420">Đọc lại dữ liệu</tspan><tspan x="420" dy="19">theo gán layer hiện tại</tspan></text>
+  <ellipse cx="420" cy="2640" rx="82" ry="30" class="shape"/>
+  <text x="420" y="2640" class="small">KẾT THÚC</text>
+  <path d="M420 1915 L420 1945" class="line"/>
+  <path d="M420 2003 L420 2045" class="line"/>
+  <path d="M420 2185 L420 2230" class="line"/>
+  <text x="443" y="2206" class="label">CÓ</text>
+  <path d="M420 2288 L420 2335" class="line"/>
+  <path d="M420 2393 L420 2440" class="line"/>
+  <path d="M420 2502 L420 2548" class="line"/>
+  <path d="M420 2606 L420 2610" class="line"/>
+  <path d="M285 2115 L145 2115 L145 2560 L338 2610" class="line"/>
+  <text x="214" y="2097" class="label">KHÔNG</text>
+
+  <!-- Tao luoi truc -->
+  <rect x="830" y="1780" width="700" height="920" rx="8" class="panel"/>
+  <text x="1180" y="1820" class="panel-title">2.2. Chương trình con tạo lưới trục</text>
+
+  <ellipse cx="1180" cy="1885" rx="82" ry="30" class="shape"/>
+  <text x="1180" y="1885" class="small">BẮT ĐẦU</text>
+  <rect x="1045" y="1945" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="1966" class="small"><tspan x="1180">Lấy các đường line</tspan><tspan x="1180" dy="19">thuộc layer lưới trục</tspan></text>
+  <polygon points="1180,2045 1315,2115 1180,2185 1045,2115" class="shape"/>
+  <text x="1180" y="2105" class="small"><tspan x="1180">Đường line</tspan><tspan x="1180" dy="19">hợp lệ?</tspan></text>
+  <rect x="1045" y="2230" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="2251" class="small"><tspan x="1180">Phân loại trục X/Y</tspan><tspan x="1180" dy="19">theo phương đường thẳng</tspan></text>
+  <rect x="1045" y="2335" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="2356" class="small"><tspan x="1180">Sắp xếp theo vị trí</tspan><tspan x="1180" dy="19">và quy ước đặt tên</tspan></text>
+  <rect x="1045" y="2440" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="2461" class="small"><tspan x="1180">Bỏ qua lưới trùng</tspan><tspan x="1180" dy="19">hoặc đã tồn tại tên</tspan></text>
+  <rect x="1045" y="2545" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="2566" class="small"><tspan x="1180">Tạo Grid trong Revit</tspan><tspan x="1180" dy="19">và cập nhật extents</tspan></text>
+  <ellipse cx="1180" cy="2640" rx="82" ry="30" class="shape"/>
+  <text x="1180" y="2640" class="small">KẾT THÚC</text>
+  <path d="M1180 1915 L1180 1945" class="line"/>
+  <path d="M1180 2003 L1180 2045" class="line"/>
+  <path d="M1180 2185 L1180 2230" class="line"/>
+  <text x="1203" y="2206" class="label">CÓ</text>
+  <path d="M1180 2288 L1180 2335" class="line"/>
+  <path d="M1180 2393 L1180 2440" class="line"/>
+  <path d="M1180 2498 L1180 2545" class="line"/>
+  <path d="M1180 2603 L1180 2610" class="line"/>
+  <path d="M1045 2115 L910 2115 L910 2620 L1098 2620" class="line"/>
+  <text x="978" y="2097" class="label">KHÔNG</text>
+
+  <!-- Tao cot -->
+  <rect x="70" y="2720" width="700" height="1070" rx="8" class="panel"/>
+  <text x="420" y="2760" class="panel-title">2.3. Chương trình con tạo cột</text>
+
+  <ellipse cx="420" cy="2825" rx="82" ry="30" class="shape"/>
+  <text x="420" y="2825" class="small">BẮT ĐẦU</text>
+  <rect x="285" y="2885" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="2906" class="small"><tspan x="420">Lấy dữ liệu cột,</tspan><tspan x="420" dy="19">lưới trục và Level</tspan></text>
+  <polygon points="420,2985 555,3055 420,3125 285,3055" class="shape"/>
+  <text x="420" y="3045" class="small"><tspan x="420">Dữ liệu đầu vào</tspan><tspan x="420" dy="19">hợp lệ?</tspan></text>
+  <rect x="285" y="3170" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="3191" class="small"><tspan x="420">Đọc polyline kín</tspan><tspan x="420" dy="19">dạng hình chữ nhật</tspan></text>
+  <rect x="285" y="3275" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="3296" class="small"><tspan x="420">Tính kích thước,</tspan><tspan x="420" dy="19">tâm và góc xoay</tspan></text>
+  <polygon points="420,3375 555,3445 420,3515 285,3445" class="shape"/>
+  <text x="420" y="3435" class="small"><tspan x="420">Tâm cột khớp</tspan><tspan x="420" dy="19">giao điểm lưới?</tspan></text>
+  <rect x="285" y="3560" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="3581" class="small"><tspan x="420">Tạo hoặc dùng lại</tspan><tspan x="420" dy="19">type cột đúng BxH</tspan></text>
+  <rect x="285" y="3665" width="270" height="58" rx="8" class="shape"/>
+  <text x="420" y="3686" class="small"><tspan x="420">Đặt cột theo tầng,</tspan><tspan x="420" dy="19">offset và góc xoay</tspan></text>
+  <ellipse cx="420" cy="3755" rx="82" ry="30" class="shape"/>
+  <text x="420" y="3755" class="small">KẾT THÚC</text>
+  <path d="M420 2855 L420 2885" class="line"/>
+  <path d="M420 2943 L420 2985" class="line"/>
+  <path d="M420 3125 L420 3170" class="line"/>
+  <text x="443" y="3146" class="label">CÓ</text>
+  <path d="M420 3228 L420 3275" class="line"/>
+  <path d="M420 3333 L420 3375" class="line"/>
+  <path d="M420 3515 L420 3560" class="line"/>
+  <text x="443" y="3536" class="label">CÓ</text>
+  <path d="M420 3618 L420 3665" class="line"/>
+  <path d="M420 3723 L420 3725" class="line"/>
+  <path d="M285 3055 L145 3055 L145 3755 L338 3755" class="line"/>
+  <text x="214" y="3037" class="label">KHÔNG</text>
+  <path d="M285 3445 L205 3445 L205 3740 L338 3740" class="line"/>
+  <text x="244" y="3427" class="label">KHÔNG</text>
+
+  <!-- Tao dam -->
+  <rect x="830" y="2720" width="700" height="1070" rx="8" class="panel"/>
+  <text x="1180" y="2760" class="panel-title">2.4. Chương trình con tạo dầm</text>
+
+  <ellipse cx="1180" cy="2825" rx="82" ry="30" class="shape"/>
+  <text x="1180" y="2825" class="small">BẮT ĐẦU</text>
+  <rect x="1045" y="2885" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="2906" class="small"><tspan x="1180">Lấy biên dầm,</tspan><tspan x="1180" dy="19">trục dầm và Level</tspan></text>
+  <polygon points="1180,2985 1315,3055 1180,3125 1045,3055" class="shape"/>
+  <text x="1180" y="3045" class="small"><tspan x="1180">Dữ liệu dầm</tspan><tspan x="1180" dy="19">hợp lệ?</tspan></text>
+  <rect x="1045" y="3170" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="3191" class="small"><tspan x="1180">Tìm cặp biên song song</tspan><tspan x="1180" dy="19">có khoảng cách hợp lệ</tspan></text>
+  <rect x="1045" y="3275" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="3296" class="small"><tspan x="1180">Xác định trục giữa</tspan><tspan x="1180" dy="19">và chiều rộng dầm</tspan></text>
+  <rect x="1045" y="3380" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="3401" class="small"><tspan x="1180">Tạo hoặc dùng lại</tspan><tspan x="1180" dy="19">type dầm theo BxH</tspan></text>
+  <rect x="1045" y="3485" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="3506" class="small"><tspan x="1180">Bỏ qua dầm trùng</tspan><tspan x="1180" dy="19">hoặc quá ngắn</tspan></text>
+  <rect x="1045" y="3590" width="270" height="58" rx="8" class="shape"/>
+  <text x="1180" y="3611" class="small"><tspan x="1180">Tạo dầm trong Revit</tspan><tspan x="1180" dy="19">trên level đã chọn</tspan></text>
+  <ellipse cx="1180" cy="3755" rx="82" ry="30" class="shape"/>
+  <text x="1180" y="3755" class="small">KẾT THÚC</text>
+  <path d="M1180 2855 L1180 2885" class="line"/>
+  <path d="M1180 2943 L1180 2985" class="line"/>
+  <path d="M1180 3125 L1180 3170" class="line"/>
+  <text x="1203" y="3146" class="label">CÓ</text>
+  <path d="M1180 3228 L1180 3275" class="line"/>
+  <path d="M1180 3333 L1180 3380" class="line"/>
+  <path d="M1180 3438 L1180 3485" class="line"/>
+  <path d="M1180 3543 L1180 3590" class="line"/>
+  <path d="M1180 3648 L1180 3725" class="line"/>
+  <path d="M1045 3055 L910 3055 L910 3755 L1098 3755" class="line"/>
+  <text x="978" y="3037" class="label">KHÔNG</text>
+
+  <g transform="translate(0,300)">
+  <!-- Tao san -->
+  <rect x="270" y="3680" width="1060" height="1030" rx="8" class="panel"/>
+  <text x="800" y="3720" class="panel-title">2.5. Chương trình con tạo sàn</text>
+
+  <ellipse cx="800" cy="3785" rx="82" ry="30" class="shape"/>
+  <text x="800" y="3785" class="small">BẮT ĐẦU</text>
+  <rect x="665" y="3845" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="3866" class="small"><tspan x="800">Lấy dữ liệu sàn,</tspan><tspan x="800" dy="19">lưới trục và Level</tspan></text>
+  <polygon points="800,3945 935,4015 800,4085 665,4015" class="shape"/>
+  <text x="800" y="4005" class="small"><tspan x="800">Dữ liệu sàn</tspan><tspan x="800" dy="19">hợp lệ?</tspan></text>
+  <rect x="665" y="4130" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="4151" class="small"><tspan x="800">Tìm polyline kín</tspan><tspan x="800" dy="19">hoặc ghép đoạn kín</tspan></text>
+  <rect x="665" y="4235" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="4256" class="small"><tspan x="800">Xác định vòng ngoài</tspan><tspan x="800" dy="19">và các lỗ mở bên trong</tspan></text>
+  <rect x="665" y="4340" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="4361" class="small"><tspan x="800">Tạo hoặc dùng lại</tspan><tspan x="800" dy="19">Floor Type theo chiều dày</tspan></text>
+  <rect x="665" y="4445" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="4466" class="small"><tspan x="800">Bỏ qua sàn trùng</tspan><tspan x="800" dy="19">hoặc đường bao không hợp lệ</tspan></text>
+  <rect x="665" y="4550" width="270" height="58" rx="8" class="shape"/>
+  <text x="800" y="4571" class="small"><tspan x="800">Tạo Floor trong Revit</tspan><tspan x="800" dy="19">trên level đã chọn</tspan></text>
+  <ellipse cx="800" cy="4655" rx="82" ry="30" class="shape"/>
+  <text x="800" y="4655" class="small">KẾT THÚC</text>
+  <path d="M800 3815 L800 3845" class="line"/>
+  <path d="M800 3903 L800 3945" class="line"/>
+  <path d="M800 4085 L800 4130" class="line"/>
+  <text x="823" y="4106" class="label">CÓ</text>
+  <path d="M800 4188 L800 4235" class="line"/>
+  <path d="M800 4293 L800 4340" class="line"/>
+  <path d="M800 4398 L800 4445" class="line"/>
+  <path d="M800 4503 L800 4550" class="line"/>
+  <path d="M800 4608 L800 4625" class="line"/>
+  <path d="M665 4015 L505 4015 L505 4655 L718 4655" class="line"/>
+  <text x="585" y="3997" class="label">KHÔNG</text>
+  </g>
+  </g>
+</svg>

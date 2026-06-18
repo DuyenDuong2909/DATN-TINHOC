@@ -53,7 +53,7 @@ namespace AutoCADToRevitApplication.Services.Creation
             var baseSymbol = FindBaseColumnSymbol();
             if (baseSymbol == null)
             {
-                result.Messages.Add($"Không tìm thấy family cột '{DefaultColumnFamilyName}'. Vui lòng chọn Family trước");
+                result.Messages.Add($"Không tìm thấy family cột '{DefaultColumnFamilyName}', vui lòng chọn Family trước");
                 return result;
             }
 
@@ -92,7 +92,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                     if (symbol == null)
                     {
                         result.Failed++;
-                        result.Messages.Add($"Không tạo được Type cột {columnModel.Width:F0}x{columnModel.Height:F0}.");
+                        result.Messages.Add($"Không tạo được Type cột {columnModel.Width:F0}x{columnModel.Height:F0}");
                         continue;
                     }
 
@@ -119,7 +119,7 @@ namespace AutoCADToRevitApplication.Services.Creation
                 catch (Exception ex)
                 {
                     result.Failed++;
-                    result.Messages.Add($"Khong tao duoc cot {columnModel.Width:F0}x{columnModel.Height:F0}: {ex.Message}");
+                    result.Messages.Add($"Không tạo được cột {columnModel.Width:F0}x{columnModel.Height:F0}: {TrimTrailingPeriod(ex.Message)}");
                 }
             }
 
@@ -317,6 +317,11 @@ namespace AutoCADToRevitApplication.Services.Creation
 
         private static double FeetToMm(double value)
             => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Millimeters);
+
+        private static string TrimTrailingPeriod(string message)
+            => string.IsNullOrWhiteSpace(message)
+                ? string.Empty
+                : message.TrimEnd().TrimEnd('.');
 
         private class ColumnPlacement
         {
